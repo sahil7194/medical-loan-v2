@@ -1,6 +1,7 @@
+import { NavFooter } from '@/components/nav-footer';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+import { NavItem, type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -10,6 +11,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+const navBarItem: NavItem[] = [
+    {
+        title: "about us",
+        href: "about-us"
+    }
+]
 export default function Dashboard() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
