@@ -8,6 +8,8 @@ require __DIR__ . '/user.php';
 require __DIR__ . '/agent.php';
 require __DIR__ . '/crm.php';
 
+
+
 Route::get('/', function () {
     return Inertia::render('home');
 });
