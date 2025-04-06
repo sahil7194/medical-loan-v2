@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import AppLayout from '@/layouts/app-layout'
-import { Head } from '@inertiajs/react'
+import { Head, useForm } from '@inertiajs/react'
+import { Label } from '@radix-ui/react-dropdown-menu';
+import { LoaderCircle } from 'lucide-react';
+import { FormEventHandler } from 'react';
 
 const heading = "Signup";
 const subheading = "Create a new account";
@@ -14,7 +17,32 @@ const loginText = "Create an account";
 const signupText = "Already have an account?";
 const signupUrl = "/login";
 
+type SignupForm = {
+    name: string;
+    mobile: string;
+    user_type: string;
+    email: string;
+    password: string;
+};
+
 const singup = () => {
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { data, setData, post, processing, reset } = useForm<Required<SignupForm>>({
+        name: '',
+        mobile: '',
+        user_type: 0,
+        email: '',
+        password: '',
+    });
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route('signup'), {
+            onFinish: () => reset('password'),
+        });
+    };
+
     return (
         <AppLayout>
             <Head title="Login" />
@@ -31,18 +59,82 @@ const singup = () => {
                             </div>
                             <div>
                                 <div className="grid gap-4">
-                                    <Input type="email" placeholder="Enter your email" required />
-                                    <div>
-                                        <Input
-                                            type="password"
-                                            placeholder="Enter your password"
-                                            required
-                                        />
-                                    </div>
+                                    <form onSubmit={submit}>
+                                        <div className="grid gap-4">
 
-                                    <Button type="submit" className="mt-2 w-full">
-                                        {loginText}
-                                    </Button>
+                                            <div>
+                                                <div className="flex items-center">
+                                                    <Label >Name</Label>
+                                                </div>
+                                                <Input
+                                                    id="name"
+                                                    type="name"
+                                                    required
+                                                    autoFocus
+                                                    tabIndex={1}
+                                                    autoComplete="name"
+                                                    value={data.name}
+                                                    onChange={(e) => setData('name', e.target.value)}
+                                                    placeholder="Jon Doe"
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <div className="flex items-center">
+                                                    <Label >Mobile</Label>
+                                                </div>
+                                                <Input
+                                                    id="mobile"
+                                                    type="mobile"
+                                                    required
+                                                    autoFocus
+                                                    tabIndex={1}
+                                                    autoComplete="mobile"
+                                                    value={data.mobile}
+                                                    onChange={(e) => setData('mobile', e.target.value)}
+                                                    placeholder="9999999999"
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <div className="flex items-center">
+                                                    <Label >Email</Label>
+                                                </div>
+                                                <Input
+                                                    id="email"
+                                                    type="email"
+                                                    required
+                                                    autoFocus
+                                                    tabIndex={1}
+                                                    autoComplete="email"
+                                                    value={data.email}
+                                                    onChange={(e) => setData('email', e.target.value)}
+                                                    placeholder="email@example.com"
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <div className="flex items-center">
+                                                    <Label >Password</Label>
+                                                </div>
+                                                <Input
+                                                    id="password"
+                                                    type="password"
+                                                    required
+                                                    tabIndex={2}
+                                                    autoComplete="current-password"
+                                                    value={data.password}
+                                                    onChange={(e) => setData('password', e.target.value)}
+                                                    placeholder="Password"
+                                                />
+                                            </div>
+
+                                            <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
+                                                {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                                                {loginText}
+                                            </Button>
+                                        </div>
+                                    </form>
 
                                 </div>
                                 <div className="mx-auto mt-8 flex justify-center gap-1 text-sm text-muted-foreground">

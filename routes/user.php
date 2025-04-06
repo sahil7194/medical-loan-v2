@@ -5,7 +5,7 @@ use Inertia\Inertia;
 
 Route::get('user/home', function (){
     return Inertia::render('user/user-home');
-});
+})->name('user.home');
 
 Route::get('user/application-history', function (){
     return Inertia::render('user/application-history');

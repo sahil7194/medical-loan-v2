@@ -12,7 +12,7 @@ require __DIR__ . '/crm.php';
 
 Route::get('/', function () {
     return Inertia::render('home');
-});
+})->name('home');
 
 Route::get('/about-us', function () {
     return Inertia::render('about-us');

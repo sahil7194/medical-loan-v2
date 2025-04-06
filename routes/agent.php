@@ -5,7 +5,7 @@ use Inertia\Inertia;
 
 Route::get('agent/home', function (){
     return Inertia::render('agent/agent-home');
-});
+})->name('agent.home');
 
 Route::get('agent/profile', function (){
     return Inertia::render('agent/agent-profile');

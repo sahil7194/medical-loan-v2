@@ -1,9 +1,11 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import AppLayout from '@/layouts/app-layout'
-import { Head } from '@inertiajs/react'
+import { Head, useForm } from '@inertiajs/react'
 import { Checkbox } from '@radix-ui/react-checkbox'
-import React from 'react'
+import { Label } from '@radix-ui/react-dropdown-menu'
+import { LoaderCircle } from 'lucide-react'
+import React, { FormEventHandler } from 'react'
 
 
 const heading = "Login";
@@ -17,8 +19,33 @@ const loginText = "Log in";
 const signupText = "Don't have an account?";
 const signupUrl = "/signup";
 
+type LoginForm = {
+    email: string;
+    password: string;
+    remember: boolean;
+};
+
+// interface LoginProps {
+//     status?: string;
+//     canResetPassword: boolean;
+// }
+
 
 const login = () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { data, setData, post, processing, reset } = useForm<Required<LoginForm>>({
+        email: '',
+        password: '',
+        remember: false,
+    });
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route('login'), {
+            onFinish: () => reset('password'),
+        });
+    };
+
     return (
         <AppLayout>
             <Head title="Login" />
@@ -34,37 +61,65 @@ const login = () => {
                                 <p className="text-muted-foreground">{subheading}</p>
                             </div>
                             <div>
-                                <div className="grid gap-4">
-                                    <Input type="email" placeholder="Enter your email" required />
-                                    <div>
-                                        <Input
-                                            type="password"
-                                            placeholder="Enter your password"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <div className="flex items-center space-x-2">
-                                            <Checkbox
-                                                id="remember"
-                                                className="border-muted-foreground"
+                                <form onSubmit={submit}>
+                                    <div className="grid gap-4">
+                                        <div>
+                                            <div className="flex items-center">
+                                                <Label >Email</Label>
+                                            </div>
+                                            <Input
+                                                id="email"
+                                                type="email"
+                                                required
+                                                autoFocus
+                                                tabIndex={1}
+                                                autoComplete="email"
+                                                value={data.email}
+                                                onChange={(e) => setData('email', e.target.value)}
+                                                placeholder="email@example.com"
                                             />
-                                            <label
-                                                htmlFor="remember"
-                                                className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                Remember me
-                                            </label>
                                         </div>
-                                        <a href="/forget-password" className="text-sm text-primary hover:underline">
-                                            Forgot password
-                                        </a>
+                                        <div>
+                                            <div className="flex items-center">
+                                                <Label >Password</Label>
+                                            </div>
+                                            <Input
+                                                id="password"
+                                                type="password"
+                                                required
+                                                tabIndex={2}
+                                                autoComplete="current-password"
+                                                value={data.password}
+                                                onChange={(e) => setData('password', e.target.value)}
+                                                placeholder="Password"
+                                            />
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <div className="flex items-center space-x-2">
+                                                <Checkbox
+                                                    id="remember"
+                                                    checked={data.remember}
+                                                    onClick={() => setData('remember', !data.remember)}
+                                                    tabIndex={3}
+                                                    className="border-muted-foreground"
+                                                />
+                                                <label
+                                                    htmlFor="remember"
+                                                    className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                >
+                                                    Remember me
+                                                </label>
+                                            </div>
+                                            <a href="/forget-password" className="text-sm text-primary hover:underline">
+                                                Forgot password
+                                            </a>
+                                        </div>
+                                        <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
+                                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                                            {loginText}
+                                        </Button>
                                     </div>
-                                    <Button type="submit" className="mt-2 w-full">
-                                        {loginText}
-                                    </Button>
-
-                                </div>
+                                </form>
                                 <div className="mx-auto mt-8 flex justify-center gap-1 text-sm text-muted-foreground">
                                     <p>{signupText}</p>
                                     <a href={signupUrl} className="font-medium text-primary">

@@ -1,37 +1,77 @@
-import React from 'react'
+import React, { FormEventHandler } from 'react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Menu } from 'lucide-react'
-
-const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/cibil-check', label: 'Check Cibil' },
-    { href: '/blogs', label: 'Blogs' },
-    { href: '/schemes', label: 'Schemes' },
-
-    // section for auth user users
-    { href: '/user/home', label: 'Home' },
-    { href: '/user/profile', label: 'Profile' },
-    { href: '/user/application-history', label: 'Application History' },
-
-    // section for agent
-    { href: '/agent/home', label: 'Home' },
-    { href: '/agent/profile', label: 'Profile' },
-    { href: '/agent/reference-history', label: 'Reference History' },
-
-
-    // section for crm
-    { href: '/crm/home', label: 'Home' },
-    { href: '/crm/users', label: 'Users' },
-    { href: '/crm/schemes', label: 'Schemes' },
-    { href: '/crm/blog', label: 'Blog' },
-    { href: '/crm/bank', label: 'Bank' },
-    { href: '/crm/application-history', label: 'Application History' },
-    { href: '/crm/cibil-log', label: 'Cibil Log' },
-
-];
+import { SharedData } from '@/types';
+import { useForm, usePage } from '@inertiajs/react';
 
 const Header = () => {
+
+    const { auth } = usePage<SharedData>().props;
+
+    let navLinks = [
+        { href: '/cibil-check', label: 'Check Cibil' },
+        { href: '/blogs', label: 'Blogs' },
+        { href: '/schemes', label: 'Schemes' },
+    ];
+
+    if (!auth) {
+        navLinks = navLinks.concat([
+            { href: '/', label: 'Home' },
+        ]);
+    }
+
+    if (auth.user) {
+        if (auth.user.user_type == 0) {
+
+            navLinks.unshift({ href: '/user/home', label: 'Home' });
+
+            navLinks = navLinks.concat([
+                // section for auth user users
+                { href: '/user/profile', label: 'Profile' },
+                { href: '/user/application-history', label: 'Application History' },
+            ]);
+        }
+
+        if (auth.user.user_type == 1) {
+
+            navLinks.unshift({ href: '/agent/home', label: 'Home' },);
+
+            navLinks = navLinks.concat([
+                // section for agent
+                { href: '/agent/profile', label: 'Profile' },
+                { href: '/agent/reference-history', label: 'Reference History' },
+            ]);
+        }
+
+        if (auth.user.user_type == 2) {
+
+            navLinks.unshift({ href: '/crm/home', label: 'Home' },);
+
+            navLinks = navLinks.concat([
+
+                { href: '/crm/users', label: 'Users' },
+                { href: '/crm/schemes', label: 'Schemes' },
+                { href: '/crm/blog', label: 'Blog' },
+                { href: '/crm/bank', label: 'Bank' },
+                { href: '/crm/application-history', label: 'Application History' },
+                { href: '/crm/cibil-log', label: 'Cibil Log' },
+            ]);
+        }
+    }
+
+
+    // logout
+    const { post, reset } = useForm<Required<any>>();
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route('logout'), {
+            onFinish: () => reset('password'),
+        });
+    };
+
+
     return (
         <header className="sticky top-0 z-50 px-20 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-16 items-center justify-between">
@@ -56,12 +96,29 @@ const Header = () => {
 
                 <div className="flex items-center gap-4">
                     <div className="hidden md:flex gap-2">
-                        <Button variant="outline" asChild className="w-full">
-                            <a href="/login">Sign In</a>
-                        </Button>
-                        <Button asChild className="w-full">
-                            <a href="/signup">Signup</a>
-                        </Button>
+
+                        {auth.user ? (
+                            <>
+                                <Button
+                                    variant="outline"
+                                    asChild className="w-full"
+                                    onClick={submit}
+                                >
+                                    <a href="/logout">Logout</a>
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <Button variant="outline" asChild className="w-full">
+                                    <a href="/login">Sign In</a>
+                                </Button>
+                                <Button asChild className="w-full">
+                                    <a href="/signup">Signup</a>
+                                </Button>
+                            </>
+
+                        )}
+
                     </div>
                     <Sheet>
                         <SheetTrigger asChild>

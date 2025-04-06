@@ -6,7 +6,7 @@ use Inertia\Inertia;
 
 Route::get('/crm/home', function () {
     return Inertia::render('crm/crm-home');
-});
+})->name('crm.home');
 
 Route::get('/crm/cibil-log', function () {
     return Inertia::render('crm/cibil-log');
