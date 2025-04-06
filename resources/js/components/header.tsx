@@ -37,7 +37,9 @@ const Header = () => {
             <div className="container flex h-16 items-center justify-between">
                 <div className="flex items-center gap-6 md:gap-10">
                     <a href="/" className="flex items-center space-x-2">
-                        <span className="text-xl font-bold text-primary">MoreEstimates</span>
+                        <span className="text-xl font-bold text-primary">
+                            Medical Loan Buddy
+                        </span>
                     </a>
                     <nav className="hidden gap-6 md:flex">
                         {navLinks.map((link) => (

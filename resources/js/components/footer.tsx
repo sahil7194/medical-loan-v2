@@ -34,7 +34,9 @@ const Footer = () => {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
           <div className="col-span-2 lg:col-span-1">
             <a href="/" className="inline-block">
-              <span className="text-xl font-bold text-primary">MoreEstimates</span>
+              <span className="text-xl font-bold text-primary">
+                Medical Loan Buddy
+              </span>
             </a>
             <p className="mt-4 text-sm text-slate-600">
               Helping contractors and home service businesses get more leads, book more estimates, and win more projects.

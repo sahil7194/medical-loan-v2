@@ -83,7 +83,7 @@ const blogs = () => {
                                         </div>
                                         <div className="mt-6 flex items-center space-x-2 md:mt-8">
                                             <a
-                                                href={post.url}
+                                                href={"/blogs/"+post.id}
                                                 target="_blank"
                                                 className="inline-flex items-center font-semibold hover:underline md:text-base"
                                             >
