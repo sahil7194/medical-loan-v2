@@ -12,7 +12,7 @@ Route::get('/crm/cibil-log', function () {
     return Inertia::render('crm/cibil-log');
 });
 
-Route::get('/crm/history', function () {
+Route::get('/crm/application-history', function () {
     return Inertia::render('crm/application-history');
 });
 
@@ -86,3 +86,5 @@ Route::get('crm/users/{slug}', function () {
 Route::get('crm/users/{slug}/edit', function () {
     return Inertia::render('crm/user/user-edit');
 });
+
+

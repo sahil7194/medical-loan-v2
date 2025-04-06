@@ -7,7 +7,7 @@ Route::get('/login', function (){
     return Inertia::render('auth/login');
 });
 
-Route::get('/singup', function (){
+Route::get('/signup', function (){
     return Inertia::render('auth/singup');
 });
 

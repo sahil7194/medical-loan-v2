@@ -1,4 +1,3 @@
-// import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import { type BreadcrumbItem } from '@/types';
@@ -12,7 +11,7 @@ interface AppLayoutProps {
 export default ({ children }: AppLayoutProps) => (
     <>
         <Header />
-        <div className="p-14">
+        <div className="px-34 py-10">
             {children}
         </div>
         <Footer />

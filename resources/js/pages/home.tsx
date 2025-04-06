@@ -1,8 +1,9 @@
 import AppLayout from '@/layouts/app-layout'
-import React from 'react'
 import { Head } from '@inertiajs/react';
+
 const Home = () => {
     return (
+
         <AppLayout>
             <Head title="Dashboard" />
             <div>

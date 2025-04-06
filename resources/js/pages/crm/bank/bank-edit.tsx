@@ -1,10 +1,17 @@
+import AppLayout from '@/layouts/app-layout'
+import { Head } from '@inertiajs/react'
 import React from 'react'
 
 const CrmBankEdit = () => {
   return (
+    <AppLayout>
+    <Head title="Dashboard" />
     <div>
-        <h1>CRM Bank Edit</h1>
+        <h1>
+            crm bank edit
+        </h1>
     </div>
+</AppLayout>
   )
 }
 

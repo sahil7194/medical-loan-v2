@@ -18,11 +18,15 @@ Route::get('/about-us', function () {
     return Inertia::render('about-us');
 });
 
-Route::get('/privacy-policy', function () {
+Route::get('/contact', function () {
+    return Inertia::render('contact');
+});
+
+Route::get('/privacy', function () {
     return Inertia::render('privacy-policy');
 });
 
-Route::get('terms-condition', function () {
+Route::get('terms', function () {
     return Inertia::render('terms-condition');
 });
 
@@ -49,3 +53,4 @@ Route::get('cibil-check', function () {
 Route::get('cibil-result/{slug}', function () {
     return Inertia::render('Cibil/cibil-result');
 });
+

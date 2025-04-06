@@ -1,10 +1,17 @@
+import AppLayout from '@/layouts/app-layout'
+import { Head } from '@inertiajs/react'
 import React from 'react'
 
 const ReferenceHistory = () => {
   return (
+    <AppLayout>
+    <Head title="Dashboard" />
     <div>
-        <h1>Reference History</h1>
+        <h1>
+            agent reference history
+        </h1>
     </div>
+</AppLayout>
   )
 }
 

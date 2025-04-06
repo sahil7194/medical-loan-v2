@@ -1,19 +1,16 @@
-import React from 'react'
+import AppLayout from '@/layouts/app-layout'
+import { Head } from '@inertiajs/react'
 
 const PrivacyPolicy = () => {
   return (
+    <AppLayout>
+    <Head title="Dashboard" />
     <div>
         <h1>
-            Privacy Policy
+        Privacy Policy
         </h1>
-        <p>
-            Lorem ipsum dolor sit amet
-            consectetur adipisicing elit
-             Illum tempora nesciunt expedita dolorum cumque quos
-             quasi pariatur, nulla et maiores voluptate eius facilis.
-              Quod deserunt saepe similique natus! Aliquam, magni?
-        </p>
     </div>
+</AppLayout>
   )
 }
 
