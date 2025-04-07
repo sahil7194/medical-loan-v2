@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BankController;
+use App\Http\Controllers\SchemeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,9 +21,10 @@ Route::get('/crm/application-history', function () {
 
 
 // bank
-Route::get('crm/bank/', function () {
-    return Inertia::render('crm/bank/bank-list');
-});
+Route::get('crm/bank/', [BankController::class,'index']);
+// Route::get('crm/bank/', function () {
+//     return Inertia::render('crm/bank/bank-list');
+// });
 
 Route::get('crm/bank/create', function () {
     return Inertia::render('crm/bank/bank-create');
@@ -53,27 +57,21 @@ Route::get('crm/blog/{slug}/edit', function () {
 });
 
 // schemes
-Route::get('crm/schemes/', function () {
-    return Inertia::render('crm/schemes/scheme-list');
-});
 
-Route::get('crm/schemes/create', function () {
-    return Inertia::render('crm/schemes/scheme-create');
-});
-
-Route::get('crm/schemes/{slug}', function () {
-    return Inertia::render('crm/schemes/scheme-show');
-});
-
-Route::get('crm/schemes/{slug}/edit', function () {
-    return Inertia::render('crm/schemes/scheme-edit');
-});
+Route::get('crm/schemes',[SchemeController::class, 'crmIndex']);
+Route::get('crm/schemes/create',[SchemeController::class, 'create']);
+Route::post('crm/schemes/create',[SchemeController::class, 'store']);
+Route::get('crm/schemes/{slug}',[SchemeController::class, 'edit']);
+Route::put('crm/schemes/{slug}',[SchemeController::class, 'update']);
+Route::post('crm/schemes/{slug}',[SchemeController::class, 'destroy']);
 
 
 // user
-Route::get('crm/users/', function () {
-    return Inertia::render('crm/user/user-list');
-});
+
+Route::get('crm/users/',[UserController::class, 'index']);
+// Route::get('crm/users/', function () {
+//     return Inertia::render('crm/user/user-list');
+// });
 
 Route::get('crm/users/create', function () {
     return Inertia::render('crm/user/user-create');

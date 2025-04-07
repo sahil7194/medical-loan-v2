@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\SchemeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,21 +32,13 @@ Route::get('terms', function () {
     return Inertia::render('terms-condition');
 });
 
-Route::get('blogs', function () {
-    return Inertia::render('Blogs/blogs');
-});
+Route::get('blogs', [BlogController::class,'index']);
 
-Route::get('blogs/{slug}', function () {
-    return Inertia::render('Blogs/blog');
-});
+Route::get('blogs/{slug}', [BlogController::class,'show']);
 
-Route::get('schemes', function () {
-    return Inertia::render('schemes/schemes');
-});
+Route::get('schemes', [SchemeController::class,'index']);
 
-Route::get('schemes/{slug}', function () {
-    return Inertia::render('schemes/scheme');
-});
+Route::get('schemes/{slug}', [SchemeController::class,'show']);
 
 Route::get('cibil-check', function () {
     return Inertia::render('Cibil/cibil-check');

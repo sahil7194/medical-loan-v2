@@ -4,31 +4,16 @@ import { Head } from '@inertiajs/react'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import React from 'react'
 
-const  schemeData = {
-    image: "https://picsum.photos/id/1/370/240",
-    title: "Home Loan Scheme",
-    description: "A flexible home loan scheme with competitive interest rates.",
-    min_interest_rate: 5.5,
-    max_interest_rate: 7.5,
-    min_cibil: 650,
-    max_cibil: 800,
-    min_tenure: 5,
-    max_tenure: 30,
-    min_amount: 100000,
-    max_amount: 5000000,
-    created_at: "2025-04-06T12:00:00Z",
-    slug: "home-loan-scheme"
-  };
+const scheme = ({scheme}) => {
 
-const scheme = () => {
   return (
     <AppLayout>
-            <Head title={schemeData.title} />
+            <Head title={scheme.title} />
             <Card className="w-full max-w-4xl mx-auto p-6">
       {/* Image Section */}
       <CardHeader className="mb-10">
         <img
-          src={schemeData.image}
+          src={scheme.image}
           alt="scheme-details"
           className="w-full h-72 object-cover rounded-lg shadow-lg"
         />
@@ -37,7 +22,7 @@ const scheme = () => {
       {/* Scheme Title and Info Section */}
       <CardHeader>
         <CardTitle className="text-4xl font-semibold text-gray-800 dark:text-white">
-          {schemeData.title}
+          {scheme.title}
         </CardTitle>
         <CardDescription className="flex justify-center space-x-6 mb-8 text-gray-600 dark:text-gray-400">
           <div className="flex items-center">
@@ -56,7 +41,7 @@ const scheme = () => {
               />
             </svg>
             <span className="ml-2 text-sm">
-              {new Date(schemeData.created_at).toLocaleDateString("en-US", {
+              {new Date(scheme.created_at).toLocaleDateString("en-US", {
                 day: "2-digit",
                 month: "short",
                 year: "numeric",
@@ -68,7 +53,7 @@ const scheme = () => {
 
       <CardContent>
         <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-7">
-          {schemeData.description}
+          {scheme.description}
         </p>
 
         {/* Scheme Details Section */}
@@ -81,28 +66,28 @@ const scheme = () => {
             <div>
               <Label>Interest Rates</Label>
               <p className="text-gray-600 dark:text-gray-400 mt-2">
-                Min: {schemeData.min_interest_rate}% | Max: {schemeData.max_interest_rate}%
+                Min: {scheme.min_interest_rate}% | Max: {scheme.max_interest_rate}%
               </p>
             </div>
 
             <div>
               <Label>CIBIL Score</Label>
               <p className="text-gray-600 dark:text-gray-400 mt-2">
-                Min: {schemeData.min_cibil} | Max: {schemeData.max_cibil}
+                Min: {scheme.min_cibil} | Max: {scheme.max_cibil}
               </p>
             </div>
 
             <div>
               <Label>Tenure</Label>
               <p className="text-gray-600 dark:text-gray-400 mt-2">
-                Min: {schemeData.min_tenure} months | Max: {schemeData.max_tenure} months
+                Min: {scheme.min_tenure} months | Max: {scheme.max_tenure} months
               </p>
             </div>
 
             <div>
               <Label>Loan Amount</Label>
               <p className="text-gray-600 dark:text-gray-400 mt-2">
-                Min: ₹{schemeData.min_amount} | Max: ₹{schemeData.max_amount}
+                Min: ₹{scheme.min_amount} | Max: ₹{scheme.max_amount}
               </p>
             </div>
           </div>
@@ -113,7 +98,7 @@ const scheme = () => {
       <CardFooter className="flex justify-center mt-10">
         <a
 
-          href={`/schemes-applicant/${schemeData.slug}/apply`}
+          href={`/schemes-applicant/${scheme.slug}/apply`}
           className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
         >
           Apply Now

@@ -1,30 +1,19 @@
 import { Card, CardContent } from '@/components/ui/card'
 import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
-import React from 'react'
 
-const blogData = {
-    id: 1,
-    title: "Understanding TypeScript Interfaces",
-    content: "TypeScript interfaces help define the structure of an object, ensuring type safety and better code maintainability.",
-    image: "https://picsum.photos/id/3/270/240",
-    created_at: "2025-04-06T12:00:00Z",
-    user: {
-        name: "John Doe",
-        id: 123
-    }
-}
 
-const blog = () => {
+const blog = ({blog}) => {
+
     return (
         <AppLayout>
-            <Head title={blogData.title} />
+            <Head title={blog.title} />
             <Card className="overflow-hidden lg:max-w-[1250px] mx-auto w-full">
                 <CardContent>
                     {/* Image Section */}
                     <div className="mb-10">
                         <img
-                            src={blogData.image}
+                            src={blog.image}
                             alt="blog-details"
                             className="object-center w-full object-cover"
                         />
@@ -33,13 +22,13 @@ const blog = () => {
                     {/* Title Section */}
                     <div className="mx-auto w-full max-w-[770px] text-center">
                         <h1 className="mb-5 text-[28px] font-semibold leading-tight text-black dark:text-white sm:text-[32px]">
-                            {blogData.title}
+                            {blog.title}
                         </h1>
 
                         {/* Metadata Section */}
                         <div className="mb-9 flex flex-wrap items-center justify-center">
                             <div className="mb-2 inline-flex items-center px-3">
-                                <p className="text-base font-medium text-body">By {blogData.user.name}</p>
+                                <p className="text-base font-medium text-body">By {blog.user.name}</p>
                             </div>
 
                             <div className="mb-2 inline-flex items-center px-3">
@@ -65,7 +54,7 @@ const blog = () => {
                                             </defs>
                                         </svg>
                                     </span>
-                                    {new Date(blogData.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}
+                                    {new Date(blog.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}
                                 </p>
                             </div>
                         </div>
@@ -73,7 +62,7 @@ const blog = () => {
                         {/* Content Section */}
                         <div className="text-left">
                             <p className="mb-9 text-base text-body leading-5">
-                                {blogData.content}
+                                {blog.content}
                             </p>
                         </div>
                     </div>

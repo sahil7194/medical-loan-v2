@@ -51,7 +51,7 @@ const Header = () => {
             navLinks = navLinks.concat([
 
                 { href: '/crm/users', label: 'Users' },
-                { href: '/crm/schemes', label: 'Schemes' },
+                { href: '/crm/schemes', label: 'Crm Schemes' },
                 { href: '/crm/blog', label: 'Blog' },
                 { href: '/crm/bank', label: 'Bank' },
                 { href: '/crm/application-history', label: 'Application History' },

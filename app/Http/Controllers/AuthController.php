@@ -18,10 +18,12 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
+        $request->session()->flash('success', 'Your action was successful!');
+
         $user = Auth::user();
         if ($user->user_type == 1) {
-            return redirect()->intended(route('agent.home', absolute: false));
-        }
+            return redirect()->intended(route('agent.home', absolute: false))
+            ->with('message', 'Login successfully');        }
 
         if ($user->user_type == 2) {
             return redirect()->intended(route('crm.home', absolute: false));
