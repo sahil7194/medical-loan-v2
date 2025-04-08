@@ -21,7 +21,7 @@ Route::get('/crm/application-history', function () {
 
 
 // bank
-Route::get('crm/bank/', [BankController::class,'index']);
+Route::get('crm/bank/', [BankController::class, 'index']);
 // Route::get('crm/bank/', function () {
 //     return Inertia::render('crm/bank/bank-list');
 // });
@@ -58,31 +58,27 @@ Route::get('crm/blog/{slug}/edit', function () {
 
 // schemes
 
-Route::get('crm/schemes',[SchemeController::class, 'crmIndex']);
-Route::get('crm/schemes/create',[SchemeController::class, 'create']);
-Route::post('crm/schemes/create',[SchemeController::class, 'store']);
-Route::get('crm/schemes/{slug}',[SchemeController::class, 'edit']);
-Route::put('crm/schemes/{slug}',[SchemeController::class, 'update']);
-Route::post('crm/schemes/{slug}',[SchemeController::class, 'destroy']);
+Route::get('crm/schemes', [SchemeController::class, 'crmIndex']);
+Route::get('crm/schemes/create', [SchemeController::class, 'create']);
+Route::post('crm/schemes/create', [SchemeController::class, 'store'])->name('crm.schemes.create');
+
+Route::get('crm/schemes/{slug}', [SchemeController::class, 'crmShow']);
+
+Route::get('crm/schemes/{slug}/edit', [SchemeController::class, 'edit']);
+Route::put('crm/schemes/{slug}', [SchemeController::class, 'update']);
+Route::get('crm/schemes/{slug}/delete', [SchemeController::class, 'destroy']);
 
 
 // user
+Route::get('crm/users/', [UserController::class, 'index']);
+Route::get('crm/users/create', [UserController::class, 'create']);
+Route::post('crm/users/create', [UserController::class, 'store'])->name('crm.users.create');
+Route::get('crm/users/{slug}/edit', [UserController::class, 'edit']);
+Route::put('crm/users/{slug}/show', [UserController::class, 'update'])->name('crm.users.edit');
+Route::get('crm/users/{slug}/delete', [UserController::class, 'destroy']);
 
-Route::get('crm/users/',[UserController::class, 'index']);
-// Route::get('crm/users/', function () {
-//     return Inertia::render('crm/user/user-list');
-// });
 
-Route::get('crm/users/create', function () {
-    return Inertia::render('crm/user/user-create');
-});
 
 Route::get('crm/users/{slug}', function () {
     return Inertia::render('crm/user/user-show');
 });
-
-Route::get('crm/users/{slug}/edit', function () {
-    return Inertia::render('crm/user/user-edit');
-});
-
-
