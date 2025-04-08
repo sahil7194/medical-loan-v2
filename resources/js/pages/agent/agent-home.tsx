@@ -1,13 +1,12 @@
 import AppLayout from '@/layouts/app-layout';
 import { Head, usePage } from '@inertiajs/react';
-import { console } from 'inspector';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 const AgentHome = () => {
     const page = usePage();  // Destructure flash data from usePage()
 
-    console.log(page);
+    // console.log(page);
     // useEffect(() => {
     //     // Ensure flash is defined and check for flash.message
     //     if (flash && flash.message) {
