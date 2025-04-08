@@ -18,7 +18,7 @@ class BankFactory extends Factory
     {
         return [
             'name'        => fake()->company,
-            'details'     => fake()->paragraph(4),
+            'details'     => fake()->sentence(),
             'vendor_code' => fake()->uuid(),
             'image'       => fake()->imageUrl(),
             'slug'        => fake()->unique()->slug(4)
