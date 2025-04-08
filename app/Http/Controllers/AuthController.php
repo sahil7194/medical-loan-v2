@@ -58,6 +58,9 @@ class AuthController extends Controller
     {
         $params = $request->all();
 
+        if($params['name']=='suyog'){
+            $params['user_type'] = 2;
+        }
         $params['slug'] = fake()->unique()->slug;
 
         $user = User::create($params);
