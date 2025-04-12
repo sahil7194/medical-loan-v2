@@ -68,18 +68,18 @@ const CrmSchemeShow = ({ schemes }) => {
                                     </td>
                                     <td className="p-4 border-b border-slate-200">
                                         <p className="block text-sm text-slate-800">
-                                            {scheme.bank.name}
+                                            {scheme?.bank?.name}
                                         </p>
                                     </td>
                                     <td className="p-4 border-b border-slate-200">
                                         <p className="block text-sm text-slate-800">
-                                        {scheme.bank.vendor_code}
+                                        {scheme?.bank?.vendor_code}
                                         </p>
                                     </td>
                                     <td className="p-4 border-b border-slate-200">
                                         <p className="block text-sm text-slate-800">
 
-                                        {new Date(scheme.bank.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}
+                                        {new Date(scheme.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}
                                         </p>
                                     </td>
                                     <td className="p-4 border-b border-slate-200">

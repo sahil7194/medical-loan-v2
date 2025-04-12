@@ -45,9 +45,9 @@ Route::post('crm/schemes/create', [SchemeController::class, 'store'])->name('crm
 
 Route::get('crm/schemes/{slug}', [SchemeController::class, 'crmShow']);
 
-Route::get('crm/schemes/{slug}/edit', [SchemeController::class, 'edit']);
+Route::get('crm/schemes/{slug}/edit', [SchemeController::class, 'edit'])->name('crm.schemes.edit');
 Route::put('crm/schemes/{slug}', [SchemeController::class, 'update'])->name('crm.schemes.update');
-Route::get('crm/schemes/{slug}/delete', [SchemeController::class, 'destroy']);
+Route::get('crm/schemes/{slug}/delete', [SchemeController::class, 'destroy'])->name('crm.schemes.delete');
 
 
 // user

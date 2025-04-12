@@ -9,7 +9,7 @@ import React, { FormEventHandler, useEffect } from 'react'
 
 const CrmSchemeEdit = ({ scheme, banks }) => {
 
-    const { data, setData, post, processing, reset } = useForm({
+    const { data, setData, put, processing, reset } = useForm({
         title: '',
         summary: '',
         description: '',
@@ -47,7 +47,7 @@ const CrmSchemeEdit = ({ scheme, banks }) => {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('crm.schemes.create'), {
+        put(route('crm.schemes.update',{slug:scheme.slug}), {
             onFinish: () => reset(),
         });
     };
@@ -241,7 +241,7 @@ const CrmSchemeEdit = ({ scheme, banks }) => {
 
                             <Button type="submit" className="mt-4 w-48" disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Save
+                                Update
                             </Button>
                         </div>
                     </form>

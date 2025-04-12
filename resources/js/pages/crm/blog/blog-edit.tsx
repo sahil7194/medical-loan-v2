@@ -27,7 +27,7 @@ const CrmBlogEdit = ({ blog }) => {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault()
-        post(route('crm.blog.create'), {
+        post(route('crm.blog.edit',{slug:blog.slug}), {
             onFinish: () => reset(), // Reset form after submission
         })
     }
@@ -86,7 +86,7 @@ const CrmBlogEdit = ({ blog }) => {
                         {/* Submit */}
                         <Button type="submit" className="mt-4 w-48" disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin mr-2" />}
-                            Save Blog
+                            Update Blog
                         </Button>
                     </form>
                 </CardContent>
