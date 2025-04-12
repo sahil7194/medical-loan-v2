@@ -34,11 +34,11 @@ class BankController extends Controller
 
         $params['image'] = 'https://picsum.photos/id/' . $id . '/370/240';
 
-        $params['vendor_code'] = fake()->unique()->uuid;
+        $params['vendor_code'] = fake()->unique()->lexify('??????');
 
         Bank::create($params);
 
-        return response()->redirectTo('/crm/blog/');
+        return response()->redirectTo('/crm/bank/');
     }
 
     public function edit(string $slug)
@@ -58,7 +58,7 @@ class BankController extends Controller
 
         $user->update($params);
 
-        return response()->redirectTo('/crm/blog/');
+        return response()->redirectTo('/crm/bank/');
     }
 
     /**
@@ -70,7 +70,7 @@ class BankController extends Controller
 
         $user->delete();
 
-        return response()->redirectTo('/crm/blog/');
+        return response()->redirectTo('/crm/bank/');
     }
 
 }

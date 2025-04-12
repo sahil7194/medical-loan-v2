@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/react'
 import React from 'react'
 
 
-const CrmBankList = ({banks}) => {
+const CrmBankList = ({ banks }) => {
 
     return (
         <AppLayout>
@@ -14,8 +14,8 @@ const CrmBankList = ({banks}) => {
                 </h1>
                 <div className="flex flex-row-reverse  m-2 mb-6 mx-23">
                     <a
-                    href='/crm/bank/create'
-                    className="rounded-full border border-slate-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" >
+                        href='/crm/bank/create'
+                        className="rounded-full border border-slate-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" >
                         Add
                     </a>
                 </div>
@@ -60,13 +60,26 @@ const CrmBankList = ({banks}) => {
                                     </td>
                                     <td className="p-4 border-b border-slate-200">
                                         <p className="block text-sm text-slate-800">
-                                        {new Date(bank.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}
+                                            {new Date(bank.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}
                                         </p>
                                     </td>
                                     <td className="p-4 border-b border-slate-200">
-                                        <a href={"/crm/bank/" + bank.id + "/edit"} className="block text-sm font-semibold text-slate-800">
-                                            Edit
-                                        </a>
+
+                                        <div className="flex space-x-5">
+
+                                            <a
+                                                href={"/crm/bank/" + bank.slug + "/edit"}
+                                                className="block text-sm font-semibold text-slate-800">
+                                                Edit
+                                            </a>
+
+                                            <a
+                                                href={"/crm/bank/" + bank.slug + "/delete"}
+                                                className="block text-sm font-semibold text-slate-800">
+                                                Delete
+                                            </a>
+
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
