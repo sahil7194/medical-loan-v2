@@ -46,7 +46,7 @@ const CrmBankList = ({banks}) => {
                         </thead>
                         <tbody>
                             {banks.map((bank) => (
-                                <tr className="hover:bg-slate-50">
+                                <tr key={bank.id} className="hover:bg-slate-50">
                                     <td className="p-4 border-b border-slate-200">
                                         <p className="block text-sm text-slate-800">
                                             {bank.name}

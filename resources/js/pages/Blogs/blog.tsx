@@ -28,7 +28,7 @@ const blog = ({blog}) => {
                         {/* Metadata Section */}
                         <div className="mb-9 flex flex-wrap items-center justify-center">
                             <div className="mb-2 inline-flex items-center px-3">
-                                <p className="text-base font-medium text-body">By {blog.user.name}</p>
+                                <p className="text-base font-medium text-body">By {blog?.user?.name}</p>
                             </div>
 
                             <div className="mb-2 inline-flex items-center px-3">

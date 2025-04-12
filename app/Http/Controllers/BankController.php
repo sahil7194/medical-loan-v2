@@ -15,4 +15,62 @@ class BankController extends Controller
 
         return Inertia::render('crm/bank/bank-list',["banks" => $users]);
     }
+
+    public function create()
+    {
+        return Inertia::render('crm/bank/bank-create');
+    }
+
+        /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $params = $request->all();
+
+        $params['slug'] = fake()->unique()->slug;
+
+        $id = rand(1, 100);
+
+        $params['image'] = 'https://picsum.photos/id/' . $id . '/370/240';
+
+        $params['vendor_code'] = fake()->unique()->uuid;
+
+        Bank::create($params);
+
+        return response()->redirectTo('/crm/blog/');
+    }
+
+    public function edit(string $slug)
+    {
+        $bank = Bank::where('slug', $slug)->first();
+
+        return Inertia::render('crm/bank/bank-edit', ['bank' => $bank]);
+    }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $slug)
+    {
+        $user = Bank::where('slug', $slug)->first();
+
+        $params = $request->all();
+
+        $user->update($params);
+
+        return response()->redirectTo('/crm/blog/');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $slug)
+    {
+        $user = Bank::where('slug', $slug)->first();
+
+        $user->delete();
+
+        return response()->redirectTo('/crm/blog/');
+    }
+
 }

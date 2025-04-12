@@ -5,37 +5,55 @@ import AppLayout from '@/layouts/app-layout'
 import { Head, useForm } from '@inertiajs/react'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import { LoaderCircle } from 'lucide-react'
-import React, { FormEventHandler } from 'react'
+import React, { FormEventHandler, useEffect } from 'react'
 
-const CrmSchemeEdit = ({scheme, banks}) => {
-
-    console.log(scheme);
+const CrmSchemeEdit = ({ scheme, banks }) => {
 
     const { data, setData, post, processing, reset } = useForm({
-            title: '',
-            summary: '',
-            description: '',
-            max_amount: '',
-            min_amount: '',
-            max_cibil: '',
-            min_cibil: '',
-            max_interest_rate: '',
-            min_interest_rate: '',
-            max_tenure: '',
-            min_tenure: '',
-            redirection_link: '',
-            bank_id: ''
-        });
+        title: '',
+        summary: '',
+        description: '',
+        max_amount: '',
+        min_amount: '',
+        max_cibil: '',
+        min_cibil: '',
+        max_interest_rate: '',
+        min_interest_rate: '',
+        max_tenure: '',
+        min_tenure: '',
+        redirection_link: '',
+        bank_id: ''
+    });
 
-        const submit: FormEventHandler = (e) => {
-            e.preventDefault();
-            post(route('crm.schemes.create'), {
-                onFinish: () => reset(),
+    useEffect(() => {
+        if (scheme) {
+            setData({
+                title: scheme.title,
+                summary: scheme.summary,
+                description: scheme.description,
+                max_amount: scheme.max_amount,
+                min_amount: scheme.min_amount,
+                max_cibil: scheme.max_cibil,
+                min_cibil: scheme.min_cibil,
+                max_interest_rate: scheme.max_interest_rate,
+                min_interest_rate: scheme.min_interest_rate,
+                max_tenure: scheme.max_tenure,
+                min_tenure: scheme.min_tenure,
+                redirection_link: scheme.redirection_link,
+                bank_id: scheme.bank_id
             });
-        };
-  return (
+        }
+    }, [scheme, setData]);
 
-<AppLayout>
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route('crm.schemes.create'), {
+            onFinish: () => reset(),
+        });
+    };
+    return (
+
+        <AppLayout>
             <Head title="Edit Scheme" />
             <Card className="w-1/2">
                 <CardHeader>
@@ -233,7 +251,7 @@ const CrmSchemeEdit = ({scheme, banks}) => {
                 </CardFooter>
             </Card>
         </AppLayout>
-  )
+    )
 }
 
 export default CrmSchemeEdit

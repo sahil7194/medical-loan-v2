@@ -50,7 +50,7 @@ const schemes = ({schemes}) => {
                                             {scheme.summary}
                                         </p>
                                         <div className="mt-6 flex items-center space-x-4 text-sm md:mt-8">
-                                            <span className="text-muted-foreground">{scheme.user.name}</span>
+                                            <span className="text-muted-foreground">{scheme?.user?.name}</span>
                                             <span className="text-muted-foreground">•</span>
                                             <span className="text-muted-foreground">
                                             {new Date(scheme.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}

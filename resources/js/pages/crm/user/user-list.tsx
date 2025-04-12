@@ -52,7 +52,7 @@ const CrmUserList = ({ users }) => {
                     <tbody>
                         {
                             users.map((user) => (
-                                <tr className="hover:bg-slate-50">
+                                <tr key={user.id} className="hover:bg-slate-50">
                                     <td className="p-4 border-b border-slate-200">
                                         <p className="block text-sm text-slate-800">
                                             {user.name}
