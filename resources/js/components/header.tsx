@@ -46,17 +46,17 @@ const Header = () => {
 
         if (auth.user.user_type == 2) {
 
-            navLinks.unshift({ href: '/crm/home', label: 'Home' },);
+            // navLinks.unshift({ href: '/crm/home', label: 'Home' },);
 
-            navLinks = navLinks.concat([
-
+            navLinks = [
+                { href: '/crm/home', label: 'Home' },
                 { href: '/crm/users', label: 'Users' },
-                { href: '/crm/schemes', label: 'Crm Schemes' },
-                { href: '/crm/blog', label: 'Blog' },
-                { href: '/crm/bank', label: 'Bank' },
+                { href: '/crm/schemes', label: 'Schemes' },
+                { href: '/crm/blog', label: 'Blogs' },
+                { href: '/crm/bank', label: 'Banks' },
                 { href: '/crm/application-history', label: 'Application History' },
                 { href: '/crm/cibil-log', label: 'Cibil Log' },
-            ]);
+            ];
         }
     }
 

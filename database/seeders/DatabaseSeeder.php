@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Applications;
 use App\Models\Bank;
 use App\Models\Blog;
 use App\Models\Cibil;
@@ -32,5 +33,7 @@ class DatabaseSeeder extends Seeder
         Scheme::factory(10)->create();
 
         Cibil::factory(10)->create();
+
+        Applications::factory(20)->create();
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\SchemeController;
@@ -16,9 +17,11 @@ Route::get('/crm/cibil-log', function () {
     return Inertia::render('crm/cibil-log');
 });
 
-Route::get('/crm/application-history', function () {
-    return Inertia::render('crm/application-history');
-});
+Route::get('/crm/application-history', [ApplicationsController::class,'crmIndex']);
+
+// Route::get('/crm/application-history', function () {
+//     return Inertia::render('crm/application-history');
+// });
 
 
 // bank
@@ -60,6 +63,3 @@ Route::get('crm/users/{slug}/delete', [UserController::class, 'destroy']);
 
 
 
-Route::get('crm/users/{slug}', function () {
-    return Inertia::render('crm/user/user-show');
-});
