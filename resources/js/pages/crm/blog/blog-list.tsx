@@ -1,10 +1,11 @@
+import DateFormatter from '@/components/ui/date-formater'
 import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 import React from 'react'
 
 const CrmBlogList = ({ blogs }) => {
 
-                     return (
+    return (
         <AppLayout>
             <Head title="Dashboard" />
             <div>
@@ -13,8 +14,8 @@ const CrmBlogList = ({ blogs }) => {
                 </h1>
                 <div className="flex flex-row-reverse  m-2 mb-6 mx-23">
                     <a
-                    href='/crm/blog/create'
-                    className="rounded-full border border-slate-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" >
+                        href='/crm/blog/create'
+                        className="rounded-full border border-slate-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" >
                         Add
                     </a>
                 </div>
@@ -64,7 +65,7 @@ const CrmBlogList = ({ blogs }) => {
 
                                 <tr key={blog.id} className="hover:bg-slate-50">
                                     <td className="p-4 border-b border-slate-200">
-                                        <p className="block text-sm text-slate-800">
+                                        <p className="block text-sm text-slate-800 max-w-xs break-words">
                                             {blog.title}
                                         </p>
                                     </td>
@@ -91,8 +92,7 @@ const CrmBlogList = ({ blogs }) => {
                                     <td className="p-4 border-b border-slate-200">
                                         <a href="#" className="block text-sm font-semibold text-slate-800">
 
-                                        {new Date(blog.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}
-
+                                            <DateFormatter date={blog.created_at} />
                                         </a>
                                     </td>
                                     <td className="p-4 border-b border-slate-200">

@@ -1,10 +1,9 @@
+import DateFormatter from '@/components/ui/date-formater';
 import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 import React from 'react'
 
 const CrmApplicationHistory = ({ applications }) => {
-
-    console.log(applications[0]);
 
     return (
         <AppLayout>
@@ -110,29 +109,12 @@ const CrmApplicationHistory = ({ applications }) => {
                                         </td>
                                         <td className="p-4 border-b border-slate-200">
                                             <p className="block text-sm text-slate-800">
-                                                {new Date(application.created_at).toLocaleString("en-IN", {
-                                                    year: 'numeric',
-                                                    month: 'short',
-                                                    day: 'numeric',
-                                                    hour: 'numeric',
-                                                    minute: 'numeric',
-                                                    second: 'numeric',
-                                                    hour12: true
-                                                })}
+                                                <DateFormatter date={application.created_at} />
                                             </p>
                                         </td>
                                         <td className="p-4 border-b border-slate-200">
                                             <p className="block text-sm text-slate-800">
-                                                {new Date(application.created_at).toLocaleString("en-IN", {
-                                                    year: 'numeric',
-                                                    month: 'short',
-                                                    day: 'numeric',
-                                                    hour: 'numeric',
-                                                    minute: 'numeric',
-                                                    second: 'numeric',
-                                                    hour12: true
-                                                })}
-
+                                                <DateFormatter date={application.updated_at} />
                                             </p>
                                         </td>
                                     </tr>

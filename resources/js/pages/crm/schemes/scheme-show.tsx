@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import DateFormatter from '@/components/ui/date-formater'
 import AppLayout from '@/layouts/app-layout'
 import { Head, router } from '@inertiajs/react'
 import { Separator } from '@radix-ui/react-dropdown-menu'
@@ -81,6 +82,7 @@ const CrmSchemeShow = ({ scheme }) => {
                         <p>Status: {scheme.status}</p>
                         <p>Bank: {scheme.bank?.name ?? 'N/A'}</p>
                         <p>Created By: {scheme.user?.name ?? 'Unknown'}</p>
+                        <p>Created At: <DateFormatter date={scheme.created_at}/></p>
                     </div>
                 </CardContent>
 

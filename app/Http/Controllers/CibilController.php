@@ -14,6 +14,15 @@ use Illuminate\Support\Str;
 class CibilController extends Controller
 {
 
+    public function cibilLog()
+    {
+        $logs = Cibil::orderByDesc('created_at')->get();
+
+        return Inertia::render('crm/cibil-log', [
+            'logs' => $logs,
+        ]);
+    }
+
     public function checkCibilView()
     {
         $states = State::all();

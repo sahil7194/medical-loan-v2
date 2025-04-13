@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CibilController;
 use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -13,9 +14,11 @@ Route::get('/crm/home', function () {
     return Inertia::render('crm/crm-home');
 })->name('crm.home');
 
-Route::get('/crm/cibil-log', function () {
-    return Inertia::render('crm/cibil-log');
-});
+// Route::get('/crm/cibil-log', function () {
+//     return Inertia::render('crm/cibil-log');
+// });
+
+Route::get('/crm/cibil-log',[CibilController::class,'cibilLog']);
 
 Route::get('/crm/application-history', [ApplicationsController::class,'crmIndex']);
 

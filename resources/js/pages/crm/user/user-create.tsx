@@ -11,10 +11,12 @@ const CrmUserCreate = () => {
 
     const { data, setData, post, processing, reset } = useForm<Required<any>>({
         name: '',
-        mobile:'',
+        mobile: '',
         email: '',
-        user_type:'',
+        user_type: '',
         password: '',
+        date_of_birth: '',
+        gender: ''
     });
 
     const submit: FormEventHandler = (e) => {
@@ -54,6 +56,19 @@ const CrmUserCreate = () => {
                             </div>
                             <div>
                                 <div className="flex items-center">
+                                    <Label >Gender</Label>
+                                </div>
+                                <select
+                                    className="border-input file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                    name="" id="" onChange={(e) => setData('gender', e.target.value)}>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other"> Other</option>
+                                </select>
+
+                            </div>
+                            <div>
+                                <div className="flex items-center">
                                     <Label >Email</Label>
                                 </div>
                                 <Input
@@ -81,7 +96,17 @@ const CrmUserCreate = () => {
                                     autoComplete="mobile"
                                     value={data.mobile}
                                     onChange={(e) => setData('mobile', e.target.value)}
-                                    placeholder="7083736757"
+                                    placeholder="999999999"
+                                />
+                            </div>
+                            <div>
+                                <Label>Date of Birth</Label>
+                                <Input
+                                    id="date_of_birth"
+                                    type="date"
+                                    required
+                                    value={data.date_of_birth}
+                                    onChange={(e) => setData('date_of_birth', e.target.value)}
                                 />
                             </div>
                             <div>

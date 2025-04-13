@@ -1,3 +1,4 @@
+import DateFormatter from '@/components/ui/date-formater'
 import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 import React from 'react'
@@ -60,7 +61,7 @@ const CrmBankList = ({ banks }) => {
                                     </td>
                                     <td className="p-4 border-b border-slate-200">
                                         <p className="block text-sm text-slate-800">
-                                            {new Date(bank.created_at).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}
+                                            <DateFormatter date={bank.created_at}/>
                                         </p>
                                     </td>
                                     <td className="p-4 border-b border-slate-200">

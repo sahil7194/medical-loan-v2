@@ -1,11 +1,13 @@
+import DateFormatter from '@/components/ui/date-formater'
 import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 import React from 'react'
 
-const CrmCibilLog = () => {
-  return (
-    <AppLayout>
-            <Head title="Dashboard" />
+const CrmCibilLog = ({ logs }) => {
+
+    return (
+        <AppLayout>
+            <Head title="Cibil log" />
             <div>
                 <h1>
                     cibil log
@@ -21,136 +23,90 @@ const CrmCibilLog = () => {
                                 </th>
                                 <th className="p-4 border-b border-slate-300 bg-slate-50">
                                     <p className="block text-sm font-normal leading-none text-slate-500">
-                                        Job
+                                        Email
                                     </p>
                                 </th>
                                 <th className="p-4 border-b border-slate-300 bg-slate-50">
                                     <p className="block text-sm font-normal leading-none text-slate-500">
-                                        Employed
+                                        Mobile
                                     </p>
                                 </th>
                                 <th className="p-4 border-b border-slate-300 bg-slate-50">
-                                    <p className="block text-sm font-normal leading-none text-slate-500"></p>
+                                    <p className="block text-sm font-normal leading-none text-slate-500">
+                                        Pan Card
+                                    </p>
+                                </th>
+                                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                                    <p className="block text-sm font-normal leading-none text-slate-500">
+                                        Score
+                                    </p>
+                                </th>
+                                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                                    <p className="block text-sm font-normal leading-none text-slate-500">
+                                        Vendor
+                                    </p>
+                                </th>
+                                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                                    <p className="block text-sm font-normal leading-none text-slate-500">
+                                        Created At
+                                    </p>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="hover:bg-slate-50">
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        John Michael
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        Manager
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        23/04/18
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <a href="#" className="block text-sm font-semibold text-slate-800">
-                                        Edit
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr className="hover:bg-slate-50">
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        Alexa Liras
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        Developer
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        23/04/18
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <a href="#" className="block text-sm font-semibold text-slate-800">
-                                        Edit
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr className="hover:bg-slate-50">
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        Laurent Perrier
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        Executive
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        19/09/17
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <a href="#" className="block text-sm font-semibold text-slate-800">
-                                        Edit
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr className="hover:bg-slate-50">
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        Michael Levi
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        Developer
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <p className="block text-sm text-slate-800">
-                                        24/12/08
-                                    </p>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <a href="#" className="block text-sm font-semibold text-slate-800">
-                                        Edit
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr className="hover:bg-slate-50">
-                                <td className="p-4">
-                                    <p className="block text-sm text-slate-800">
-                                        Richard Gran
-                                    </p>
-                                </td>
-                                <td className="p-4">
-                                    <p className="block text-sm text-slate-800">
-                                        Manager
-                                    </p>
-                                </td>
-                                <td className="p-4">
-                                    <p className="block text-sm text-slate-800">
-                                        04/10/21
-                                    </p>
-                                </td>
-                                <td className="p-4">
-                                    <a href="#" className="block text-sm font-semibold text-slate-800">
-                                        Edit
-                                    </a>
-                                </td>
-                            </tr>
+                            {
+                                logs.map((log) => (
+
+                                    <tr key={log.id} className="hover:bg-slate-50">
+                                        <td className="p-4 border-b border-slate-200">
+                                            <p className="block text-sm text-slate-800">
+                                                {log.name}
+                                            </p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200">
+                                            <p className="block text-sm text-slate-800">
+                                                {log.email}
+
+                                            </p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200">
+                                            <p className="block text-sm text-slate-800">
+                                                {log.mobile}
+
+                                            </p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200">
+                                            <p className="block text-sm text-slate-800">
+                                                {log.pan_card}
+
+                                            </p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200">
+                                            <p className="block text-sm text-slate-800">
+                                                {log.score}
+
+                                            </p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200">
+                                            <p className="block text-sm text-slate-800">
+                                                {log.vendor}
+
+                                            </p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200">
+                                            <p className="block text-sm text-slate-800">
+                                                <DateFormatter date={log.created_at}/>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
         </AppLayout>
-  )
+    )
 }
 
 export default CrmCibilLog

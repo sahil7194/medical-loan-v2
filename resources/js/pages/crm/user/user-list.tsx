@@ -1,3 +1,4 @@
+import DateFormatter from '@/components/ui/date-formater'
 import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 import React from 'react'
@@ -45,6 +46,11 @@ const CrmUserList = ({ users }) => {
                                 </p>
                             </th>
                             <th className="p-4 border-b border-slate-300 bg-slate-50">
+                                <p className="block text-sm font-normal leading-none text-slate-500">
+                                    Created At
+                                </p>
+                            </th>
+                            <th className="p-4 border-b border-slate-300 bg-slate-50">
                                 <p className="block text-sm font-normal leading-none text-slate-500"></p>
                             </th>
                         </tr>
@@ -71,6 +77,11 @@ const CrmUserList = ({ users }) => {
                                     <td className="p-4 border-b border-slate-200">
                                         <p className="block text-sm text-slate-800">
                                             {user.user_type}
+                                        </p>
+                                    </td>
+                                    <td className="p-4 border-b border-slate-200">
+                                        <p className="block text-sm text-slate-800">
+                                            <DateFormatter date={user.created_at}/>
                                         </p>
                                     </td>
                                     <td className="p-4 border-b border-slate-200">

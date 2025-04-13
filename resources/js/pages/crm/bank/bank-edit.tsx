@@ -68,7 +68,7 @@ const CrmBankEdit = ({ bank }) => {
                         {/* Submit */}
                         <Button type="submit" className="mt-4 w-48" disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin mr-2" />}
-                            Save Bank
+                            Update Bank
                         </Button>
                     </form>
                 </CardContent>
