@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Address;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -31,7 +32,10 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password'          => static::$password ??= Hash::make('password'),
             'remember_token'    => Str::random(10),
-            'user_type'         => fake()->numberBetween(0,2)
+            'user_type'         => fake()->numberBetween(0,2),
+            'address_id'        => Address::inRandomOrder()->first()->id,
+            'gender'            => fake()->randomElement(['male','female']),
+            'date_of_birth'     => fake()->date('Y-m-d')
         ];
     }
 

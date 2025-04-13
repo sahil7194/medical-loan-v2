@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CibilController;
 use App\Http\Controllers\SchemeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -40,11 +41,9 @@ Route::get('schemes', [SchemeController::class,'index']);
 
 Route::get('schemes/{slug}', [SchemeController::class,'show']);
 
-Route::get('cibil-check', function () {
-    return Inertia::render('Cibil/cibil-check');
-});
+Route::get('cibil-check', [CibilController::class,'checkCibilView']);
 
-Route::get('cibil-result/{slug}', function () {
-    return Inertia::render('Cibil/cibil-result');
-});
+Route::post('cibil-check', [CibilController::class,'checkCibil'])->name('cibil.check');
+
+// Route::get('cibil-result/{slug}', [CibilController::class,'checkCibil']);
 

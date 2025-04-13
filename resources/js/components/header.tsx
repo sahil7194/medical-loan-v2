@@ -46,8 +46,6 @@ const Header = () => {
 
         if (auth.user.user_type == 2) {
 
-            // navLinks.unshift({ href: '/crm/home', label: 'Home' },);
-
             navLinks = [
                 { href: '/crm/home', label: 'Home' },
                 { href: '/crm/users', label: 'Users' },

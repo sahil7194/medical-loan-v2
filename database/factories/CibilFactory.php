@@ -20,6 +20,7 @@ class CibilFactory extends Factory
         $user = User::where('user_type' ,0)->inRandomOrder()->first();
 
         return [
+            'slug'   => fake()->slug(3),
             "score"   => fake()->numberBetween(700,950),
             "vendor"  => fake()->randomElement(["a","b"]),
             "user_id" => $user->id,

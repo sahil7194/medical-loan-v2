@@ -50,6 +50,7 @@
         "laravel-vite-plugin": "^1.0",
         "lucide-react": "^0.475.0",
         "react": "^19.0.0",
+        "react-circular-progressbar": "^2.2.0",
         "react-dom": "^19.0.0",
         "react-toastify": "^11.0.5",
         "tailwind-merge": "^3.0.1",

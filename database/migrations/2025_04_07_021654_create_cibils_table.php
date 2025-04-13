@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('cibils', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('slug');
             $table->string('score');
             $table->string('vendor');
             $table->unsignedInteger('user_id')->nullable();
