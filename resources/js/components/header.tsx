@@ -35,13 +35,16 @@ const Header = () => {
 
         if (auth.user.user_type == 1) {
 
-            navLinks.unshift({ href: '/agent/home', label: 'Home' },);
 
-            navLinks = navLinks.concat([
+            navLinks = [
                 // section for agent
-                { href: '/agent/profile', label: 'Profile' },
+                { href: '/agent/home', label: 'Home' },
+                { href: '/blogs', label: 'Blogs' },
+                { href: '/schemes', label: 'Schemes' },
+                { href: '/agent/refer/schemes', label: 'Refer Schemes' },
                 { href: '/agent/reference-history', label: 'Reference History' },
-            ]);
+                { href: '/agent/profile', label: 'Profile' },
+            ];
         }
 
         if (auth.user.user_type == 2) {

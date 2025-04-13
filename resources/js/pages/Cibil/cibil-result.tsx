@@ -5,54 +5,51 @@ import React from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'; // Import CircularProgressBar
 
 
-const CibilResult = ({cibil}) => {
-
-    console.log(cibil);
+const CibilResult = ({ cibil }) => {
 
     const scorePercentage = cibil.score ? (cibil.score / 900) * 100 : 0;
 
-
-  return (
-    <AppLayout>
+    return (
+        <AppLayout>
             <Head title="Dashboard" />
-            <Card className="w-1/2 mt-8">
-            <CardHeader>
-                <CardTitle>CIBIL Score Details</CardTitle>
-            </CardHeader>
-            <CardContent>
-                {cibil.score === null ? (
-                    <p className="text-center text-muted">CIBIL Score not available yet</p>
-                ) : (
-                    <div className="text-center">
-                        <div className="w-32 h-32 mx-auto mb-4">
-                            {/* Circular Progress Bar */}
-                            <CircularProgressbar
-                                value={scorePercentage}
-                                text={`${cibil.score}`}
-                                styles={buildStyles({
-                                    pathColor: `#4caf50`, // Green color for the path
-                                    textColor: `#000000`, // Black color for the score text
-                                    trailColor: '#d6d6d6', // Light gray for the trail
-                                    textSize: '32px', // Text size inside the progress circle
-                                })}
-                            />
+            <Card className="w-full md:w-1/2 mt-8 mx-auto">
+                <CardHeader>
+                    <CardTitle>CIBIL Score Details</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    {cibil.score === null ? (
+                        <p className="text-center text-muted">CIBIL Score not available yet</p>
+                    ) : (
+                        <div className="text-center">
+                            <div className="w-48 h-48 mx-auto mb-4 flex items-center justify-center">
+                                <CircularProgressbar
+                                    value={scorePercentage}
+                                    text={`${cibil.score}`}
+                                    strokeWidth={12}
+                                    styles={buildStyles({
+                                        pathColor: '#4caf50',
+                                        textColor: '#000000',
+                                        trailColor: '#d6d6d6',
+                                        textSize: '28px',
+                                    })}
+                                />
+                            </div>
+                            <p className="text-muted mt-2">Your current CIBIL score</p>
                         </div>
-                        <p className="text-muted mt-2">Your current CIBIL score</p>
-                    </div>
-                )}
+                    )}
 
-                {/* <div className="mt-4">
-                    <p><strong>User Details:</strong></p>
-                    <div className="flex flex-col items-center mt-2">
-                        <p><strong>Name:</strong> {fullName}</p>
-                        <p><strong>Email:</strong> {email}</p>
-                        <p><strong>Mobile:</strong> {mobile}</p>
+                    <div className="mt-6">
+                        <p className="font-semibold mb-2">User Details:</p>
+                        <div className="flex flex-col gap-1">
+                            <p><strong>Name:</strong> {cibil.name}</p>
+                            <p><strong>Email:</strong> {cibil.email}</p>
+                            <p><strong>Mobile:</strong> {cibil.mobile}</p>
+                        </div>
                     </div>
-                </div> */}
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
         </AppLayout>
-  )
+    )
 }
 
 export default CibilResult

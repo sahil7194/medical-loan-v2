@@ -45,5 +45,5 @@ Route::get('cibil-check', [CibilController::class,'checkCibilView']);
 
 Route::post('cibil-check', [CibilController::class,'checkCibil'])->name('cibil.check');
 
-// Route::get('cibil-result/{slug}', [CibilController::class,'checkCibil']);
+Route::get('cibil-result/{slug}', [CibilController::class,'cibilResult']);
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bank;
 use App\Models\Scheme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
@@ -19,15 +20,20 @@ class SchemeController extends Controller
 
     public function show(Request $request, string $slug)
     {
-        if ($request->v_slug) {
+        if ($request->vendor_code) {
 
-            Cache::put('vendor_slug', $request->v_slug);
+            Cache::put('vendor_slug', $request->vendor_code);
 
         }
 
+        $user = Auth::user() ?? null;
+
         $scheme = Scheme::where('slug', $slug)->with('user')->first();
 
-        return Inertia::render('schemes/scheme', ['scheme' => $scheme]);
+        return Inertia::render('schemes/scheme', [
+            'scheme' => $scheme,
+            'user' => $user,
+        ]);
     }
 
     public function crmIndex()

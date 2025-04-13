@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class AuthController extends Controller
@@ -21,12 +22,22 @@ class AuthController extends Controller
         $request->session()->flash('success', 'Your action was successful!');
 
         $user = Auth::user();
+
         if ($user->user_type == 1) {
+
             return redirect()->intended(route('agent.home', absolute: false))
-            ->with('message', 'Login successfully');        }
+                ->with('message', 'Login successfully');
+        }
 
         if ($user->user_type == 2) {
             return redirect()->intended(route('crm.home', absolute: false));
+        }
+
+        $params = $request->all();
+
+        if ($params['redirect_url']) {
+
+           return response()->redirectTo('schemes/' . $params['redirect_url']);
         }
 
         return redirect()->intended(route('user.home', absolute: false));
@@ -58,7 +69,7 @@ class AuthController extends Controller
     {
         $params = $request->all();
 
-        if($params['name']=='suyog'){
+        if ($params['name'] == 'suyog') {
             $params['user_type'] = 2;
         }
         $params['slug'] = fake()->unique()->slug;

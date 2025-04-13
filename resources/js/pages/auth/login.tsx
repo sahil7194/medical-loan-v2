@@ -1,13 +1,11 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import AppLayout from '@/layouts/app-layout'
-import { Head, useForm } from '@inertiajs/react'
+import { Head, useForm, usePage } from '@inertiajs/react'
 import { Checkbox } from '@radix-ui/react-checkbox'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import { LoaderCircle } from 'lucide-react'
 import React, { FormEventHandler } from 'react'
-
-
 
 const heading = "Login";
 const subheading = "Welcome back";
@@ -24,20 +22,21 @@ type LoginForm = {
     email: string;
     password: string;
     remember: boolean;
+    redirect_url: string
 };
 
-// interface LoginProps {
-//     status?: string;
-//     canResetPassword: boolean;
-// }
+const Login = () => {
 
+    const { url } = usePage();
+    const queryParams = new URLSearchParams(url.split('?')[1]);
 
-const login = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const vendorCode = queryParams.get('redirect_url');
+
     const { data, setData, post, processing, reset } = useForm<Required<LoginForm>>({
         email: '',
         password: '',
         remember: false,
+        redirect_url: vendorCode
     });
 
     const submit: FormEventHandler = (e) => {
@@ -136,4 +135,4 @@ const login = () => {
     )
 }
 
-export default login
+export default Login

@@ -77,9 +77,15 @@ class CibilController extends Controller
 
         $cibil = Cibil::create($cibilParams);
 
+        return response()->redirectTo('cibil-result/'.$cibil->slug);
+    }
+
+    public function cibilResult(string $slug)
+    {
+        $cibil = Cibil::where('slug', $slug)->first();
+
         return Inertia::render('Cibil/cibil-result', [
             'cibil' => $cibil
         ]);
-
     }
 }
