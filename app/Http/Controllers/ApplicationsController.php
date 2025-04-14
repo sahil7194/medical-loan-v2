@@ -7,13 +7,14 @@ use App\Models\Scheme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+
 class ApplicationsController extends Controller
 {
     public function apply(Request $request)
     {
         // dd($request->slug);
 
-        $scheme = Scheme::where('slug','=',$request->slug)->with('bank')->first();
+        $scheme = Scheme::where('slug', '=', $request->slug)->with('bank')->first();
 
         // // $scheme = $scheme->toArray();
 
@@ -41,8 +42,23 @@ class ApplicationsController extends Controller
 
     public function crmIndex()
     {
-        $applications = Applications::orderByDesc('updated_at')->with('agent','scheme.bank','applicant')->get();
+        $applications = Applications::orderByDesc('updated_at')->with('agent', 'scheme.bank', 'applicant')->get();
 
-        return Inertia::render('crm/application-history',['applications' => $applications]);
+        return Inertia::render('crm/application-history', ['applications' => $applications]);
+    }
+
+    public function userIndex()
+    {
+        $applications = Applications::where('user_id', Auth::user()->id)
+            ->orderByDesc('updated_at')->with('agent', 'scheme.bank', 'applicant')->get();
+
+        return Inertia::render('user/application-history', ['applications' => $applications]);
+    }
+
+    public function agentIndex()
+    {
+        $applications = Applications::where('agent_id', Auth::user()->id)->orderByDesc('updated_at')->with('agent', 'scheme.bank', 'applicant')->get();
+
+        return Inertia::render('agent/reference-history', ['applications' => $applications]);
     }
 }

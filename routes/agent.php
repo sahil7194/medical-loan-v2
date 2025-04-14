@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\ApplicationsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,8 +17,6 @@ Route::get('agent/profile/update', function (){
     return Inertia::render('agent/agent-update-profile');
 });
 
-Route::get('agent/reference-history', function (){
-    return Inertia::render('agent/reference-history');
-});
+Route::get('agent/reference-history', [ApplicationsController::class,'agentIndex']);
 
 Route::get('/agent/refer/schemes', [AgentController::class,'referSchemeList']);

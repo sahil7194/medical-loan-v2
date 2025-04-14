@@ -10,9 +10,7 @@ Route::get('user/home', function (){
 
 Route::post('user/apply',[ApplicationsController::class,'apply'])->name('user.apply');
 
-Route::get('user/application-history', function (){
-    return Inertia::render('user/application-history');
-});
+Route::get('user/application-history', [ApplicationsController::class,'userIndex']);
 
 Route::get('user/profile', function (){
     return Inertia::render('user/user-profile');
