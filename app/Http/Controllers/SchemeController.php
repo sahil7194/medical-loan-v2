@@ -13,7 +13,7 @@ class SchemeController extends Controller
 {
     public function index()
     {
-        $schemes = Scheme::orderByDesc('created_at')->with('user')->get();
+        $schemes = Scheme::orderByDesc('created_at')->with('user','bank')->get();
 
         return Inertia::render('schemes/schemes', ['schemes' => $schemes]);
     }
@@ -28,7 +28,7 @@ class SchemeController extends Controller
 
         $user = Auth::user() ?? null;
 
-        $scheme = Scheme::where('slug', $slug)->with('user')->first();
+        $scheme = Scheme::where('slug', $slug)->with('user','bank')->first();
 
         return Inertia::render('schemes/scheme', [
             'scheme' => $scheme,

@@ -3,13 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applications;
+use App\Models\Scheme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 class ApplicationsController extends Controller
 {
     public function apply(Request $request)
     {
-        dd($request);
+        // dd($request->slug);
+
+        $scheme = Scheme::where('slug','=',$request->slug)->with('bank')->first();
+
+        // // $scheme = $scheme->toArray();
+
+        // dd($scheme , $scheme->id);
+
+        $userId = Auth::user()->id;
+
+        $bankName = $scheme->bank?->name ?? 'Test';
+
+        $applicationNumber =  generateApplicationNumber($bankName, $userId);
+
+        $params =  [
+            'application_id' => $applicationNumber,
+            'status' => fake()->numberBetween(0, 3),
+            'remarks' => fake()->text(),
+            'scheme_id' => $scheme->id,
+            'user_id' => $userId,
+            'agent_id' => 1,
+        ];
+
+        Applications::create($params);
+
+        return redirect()->back();
     }
 
     public function crmIndex()

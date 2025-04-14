@@ -19,14 +19,10 @@ class ApplicationsFactory extends Factory
     public function definition(): array
     {
         $scheme = Scheme::inRandomOrder()->first();
-        $bankName = strtoupper(substr($scheme->bank->name, 0, 3));
         $userId = User::inRandomOrder()->first()->id;
-        $today = now()->format('Ymd');
-
-        $applicationNumber = 'AP' . $today . '' . $bankName . '' . $userId;
 
         return [
-            'application_id' => $applicationNumber,
+            'application_id' => generateApplicationNumber($scheme->bank->name, $userId),
             'status' => fake()->numberBetween(0, 3),
             'remarks' => fake()->text(),
             'scheme_id' => $scheme->id,

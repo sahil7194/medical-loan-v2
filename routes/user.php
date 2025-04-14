@@ -8,7 +8,7 @@ Route::get('user/home', function (){
     return Inertia::render('user/user-home');
 })->name('user.home');
 
-Route::post('user/apply',[ApplicationsController::class,'apply']);
+Route::post('user/apply',[ApplicationsController::class,'apply'])->name('user.apply');
 
 Route::get('user/application-history', function (){
     return Inertia::render('user/application-history');

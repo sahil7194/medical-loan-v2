@@ -1,16 +1,36 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import AppLayout from '@/layouts/app-layout'
-import { Head } from '@inertiajs/react'
+import { Head, useForm } from '@inertiajs/react'
 import { Label } from '@radix-ui/react-dropdown-menu'
-import React from 'react'
+import { toast } from 'react-toastify'
 
 const scheme = ({ scheme, user }) => {
 
-    console.log(user)
+    const { data, setData, post, processing, reset } = useForm({
+        slug: scheme.slug,
+    });
 
     const apply = () => {
+
         console.log('applied to scheme')
+
+        post(route('user.apply'), {
+            onFinish: () => {
+
+                const link = `${scheme.redirection_link}?vendor_code=${scheme?.bank?.vendor_code}`;
+
+                toast.success('You have been successfully applied to the scheme');
+
+                toast.success('wait for 2 sec you will be redirect to bank side');
+
+
+                setTimeout(function () {
+
+                    window.open(link, '_blank');
+                }, 2000);
+            },
+        });
     }
 
     return (
@@ -110,7 +130,7 @@ const scheme = ({ scheme, user }) => {
                                 <Button
                                     variant="outline"
                                     asChild className="w-full"
-                                    onClick={() => apply}
+                                    onClick={() => apply()}
                                 >
                                     <a >
                                         Apply
