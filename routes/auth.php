@@ -17,6 +17,9 @@ Route::post('logout', [AuthController::class, 'destroy'])
 Route::get('signup', [AuthController::class, 'showSignupPage'])
 ->name('signup');
 
+Route::get('agent/signup', [AuthController::class, 'showAgentSignupPage'])
+->name('agent.signup');
+
 Route::post('signup', [AuthController::class, 'signup']);
 
 

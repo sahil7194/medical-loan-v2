@@ -65,6 +65,11 @@ class AuthController extends Controller
         return Inertia::render('auth/singup');
     }
 
+    public function showAgentSignupPage()
+    {
+        return Inertia::render('auth/singup');
+    }
+
     public function signup(Request $request)
     {
         $params = $request->all();

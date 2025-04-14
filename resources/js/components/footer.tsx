@@ -15,6 +15,13 @@ const footerLinks = [
     items: [
       { href: '/privacy', label: 'Privacy Policy' },
       { href: '/terms', label: 'Terms of Service' },
+    //   agent/signup
+    ],
+  },
+  {
+    title: 'Resource',
+    items: [
+      { href: '/agent/signup', label: 'Be Agent' },
     ],
   },
 ]

@@ -14,17 +14,10 @@ Route::get('/crm/home', function () {
     return Inertia::render('crm/crm-home');
 })->name('crm.home');
 
-// Route::get('/crm/cibil-log', function () {
-//     return Inertia::render('crm/cibil-log');
-// });
 
 Route::get('/crm/cibil-log',[CibilController::class,'cibilLog']);
 
 Route::get('/crm/application-history', [ApplicationsController::class,'crmIndex']);
-
-// Route::get('/crm/application-history', function () {
-//     return Inertia::render('crm/application-history');
-// });
 
 
 // bank

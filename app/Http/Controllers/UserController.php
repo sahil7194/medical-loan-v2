@@ -6,6 +6,7 @@ use App\Models\User;
 use Inertia\Inertia;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -59,9 +60,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request)
     {
-        $user = User::where('slug', $slug)->first();
+
+        $user = User::where('id', Auth::user()->id)->first();
 
         $params = $request->all();
 
@@ -71,7 +73,16 @@ class UserController extends Controller
 
         $user->update($params);
 
-        return response()->redirectTo('/crm/users');
+        if ($user->user_type == 1) {
+            return response()->redirectTo('/agent/profile');
+
+        }
+
+        if ($user->user_type == 2) {
+            return response()->redirectTo('/agent/profile');
+        }
+
+        return response()->redirectTo('/user/profile');
     }
 
     /**
