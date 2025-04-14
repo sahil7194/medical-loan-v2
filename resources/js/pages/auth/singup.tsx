@@ -1,3 +1,4 @@
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import AppLayout from '@/layouts/app-layout'
@@ -28,7 +29,7 @@ type SignupForm = {
 const singup = () => {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { data, setData, post, processing, reset } = useForm<Required<SignupForm>>({
+    const { data, setData, post, processing, errors,reset } = useForm<Required<SignupForm>>({
         name: '',
         mobile: '',
         user_type: 0,
@@ -78,6 +79,7 @@ const singup = () => {
                                                     placeholder="Jon Doe"
                                                 />
                                             </div>
+                                           <InputError message={errors.email} />
 
                                             <div>
                                                 <div className="flex items-center">

@@ -74,6 +74,10 @@ class AuthController extends Controller
         }
         $params['slug'] = fake()->unique()->slug;
 
+        $params['date_of_birth'] = '';
+        $params['gender'] = '';
+
+
         $user = User::create($params);
 
         Auth::login($user);

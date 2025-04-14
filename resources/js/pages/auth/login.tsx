@@ -6,6 +6,8 @@ import { Checkbox } from '@radix-ui/react-checkbox'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import { LoaderCircle } from 'lucide-react'
 import React, { FormEventHandler } from 'react'
+import InputError from '@/components/input-error';
+
 
 const heading = "Login";
 const subheading = "Welcome back";
@@ -32,7 +34,7 @@ const Login = () => {
 
     const vendorCode = queryParams.get('redirect_url');
 
-    const { data, setData, post, processing, reset } = useForm<Required<LoginForm>>({
+    const { data, setData, post, processing, errors,reset } = useForm<Required<LoginForm>>({
         email: '',
         password: '',
         remember: false,
@@ -78,6 +80,7 @@ const Login = () => {
                                                 onChange={(e) => setData('email', e.target.value)}
                                                 placeholder="email@example.com"
                                             />
+                                             <InputError message={errors.email} />
                                         </div>
                                         <div>
                                             <div className="flex items-center">
@@ -93,6 +96,7 @@ const Login = () => {
                                                 onChange={(e) => setData('password', e.target.value)}
                                                 placeholder="Password"
                                             />
+                                             <InputError message={errors.password} />
                                         </div>
                                         <div className="flex justify-between">
                                             <div className="flex items-center space-x-2">
