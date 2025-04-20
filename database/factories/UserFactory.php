@@ -33,7 +33,6 @@ class UserFactory extends Factory
             'password'          => static::$password ??= Hash::make('password'),
             'remember_token'    => Str::random(10),
             'user_type'         => fake()->numberBetween(0,2),
-            'address_id'        => Address::inRandomOrder()->first()->id,
             'gender'            => fake()->randomElement(['male','female']),
             'date_of_birth'     => fake()->date('Y-m-d')
         ];

@@ -4,7 +4,10 @@ import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 import { Label } from '@radix-ui/react-dropdown-menu'
 
-const UserProfile = () => {
+const UserProfile = ({user}) => {
+
+    console.log(user);
+
     return (
         <AppLayout>
             <Head title="User Profile" />

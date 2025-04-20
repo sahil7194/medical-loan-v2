@@ -6,7 +6,9 @@ import { Head } from '@inertiajs/react'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import React from 'react'
 
-const UserUpdateProfile = () => {
+const UserUpdateProfile = ({user}) => {
+
+    console.log(user);
   return (
     <AppLayout>
             <Head title="Update User Profile" />

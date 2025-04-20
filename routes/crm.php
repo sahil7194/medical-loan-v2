@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
+Route::middleware('agent')->group(function(){
+
+
 Route::get('/crm/home', function () {
     return Inertia::render('crm/crm-home');
 })->name('crm.home');
@@ -58,4 +61,4 @@ Route::put('crm/users/{slug}/edit', [UserController::class, 'update'])->name('cr
 Route::get('crm/users/{slug}/delete', [UserController::class, 'destroy']);
 
 
-
+});

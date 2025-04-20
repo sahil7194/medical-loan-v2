@@ -22,13 +22,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         State::factory(10)->create();
+        State::factory(10)->create();
 
-         City::factory(20)->create();
-
-        Address::factory(10)->create();
+        City::factory(20)->create();
 
         User::factory(10)->create();
+
+        Address::factory(10)->create();
 
         User::factory()->create([
             'name' => 'Test User',

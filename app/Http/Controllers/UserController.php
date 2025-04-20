@@ -57,6 +57,15 @@ class UserController extends Controller
 
         return Inertia::render('crm/user/user-edit', ['user' => $user]);
     }
+
+    public function showUserProfilePage()
+    {
+        $user = User::find(Auth::user()->id)->with('address')->first();
+
+        return Inertia::render('user/user-update-profile',[
+            'user' => $user
+        ]);
+    }
     /**
      * Update the specified resource in storage.
      */

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('city_id')->references('id')->on('cities');
             $table->unsignedInteger('state_id')->nullable();
             $table->foreign('state_id')->references('id')->on('states');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();
         });
