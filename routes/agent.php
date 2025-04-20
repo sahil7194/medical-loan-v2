@@ -2,23 +2,20 @@
 
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ApplicationsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
-Route::middleware(['agent'])->group(function () {
+Route::middleware(['auth','agent'])->group(function () {
 
     Route::get('agent/home', function () {
         return Inertia::render('agent/agent-home');
     })->name('agent.home');
 
-    Route::get('agent/profile', function () {
-        return Inertia::render('agent/agent-profile');
-    });
+    Route::get('agent/profile', [UserController::class,'showUserProfilePage']);
 
-    Route::get('agent/profile/update', function () {
-        return Inertia::render('agent/agent-update-profile');
-    });
+    Route::get('agent/profile/update', [UserController::class,'showUserProfilePage']);
 
     Route::get('agent/reference-history', [ApplicationsController::class, 'agentIndex']);
 

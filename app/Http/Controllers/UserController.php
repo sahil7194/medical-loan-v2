@@ -60,9 +60,25 @@ class UserController extends Controller
 
     public function showUserProfilePage()
     {
-        $user = User::find(Auth::user()->id)->with('address')->first();
+        $user = User::find(Auth::user()->id)->with('address','address.state','address.city')->first();
 
-        return Inertia::render('user/user-update-profile',[
+
+
+        if ($user->type == 1) {
+            return Inertia::render('agent/agent-profile',[
+                'user' => $user
+            ]);
+
+        }
+
+        if ($user->type == 2) {
+            return Inertia::render('crm/crm-profile',[
+                'user' => $user
+            ]);
+        }
+
+
+        return Inertia::render('user/user-profile',[
             'user' => $user
         ]);
     }
@@ -82,12 +98,12 @@ class UserController extends Controller
 
         $user->update($params);
 
-        if ($user->user_type == 1) {
+        if ($user->type == 1) {
             return response()->redirectTo('/agent/profile');
 
         }
 
-        if ($user->user_type == 2) {
+        if ($user->type == 2) {
             return response()->redirectTo('/agent/profile');
         }
 

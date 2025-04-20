@@ -18,7 +18,7 @@ class AgentMiddleware
     {
         $user = Auth::user();
 
-        if (!$user && !$user?->type === 1) {
+        if (!($user && $user?->type == 1)) {
             return response()->redirectTo('/login');
         }
 

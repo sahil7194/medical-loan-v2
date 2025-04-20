@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password'          => static::$password ??= Hash::make('password'),
             'remember_token'    => Str::random(10),
-            'user_type'         => fake()->numberBetween(0,2),
+            'type'         => fake()->numberBetween(0,2),
             'gender'            => fake()->randomElement(['male','female']),
             'date_of_birth'     => fake()->date('Y-m-d')
         ];

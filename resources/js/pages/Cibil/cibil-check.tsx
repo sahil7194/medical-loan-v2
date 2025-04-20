@@ -9,6 +9,9 @@ import React, { FormEventHandler } from 'react'
 
 const CibilCheck = ({states, cities}) => {
 
+
+    // console.log(states, cities);
+
     const { data, setData, post, processing, reset } = useForm({
         full_name: '',
         date_of_birth: '',

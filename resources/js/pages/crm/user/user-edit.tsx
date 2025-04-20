@@ -15,7 +15,7 @@ const CrmUserEdit = ({ user }) => {
         name: '',
         mobile: '',
         email: '',
-        user_type: '',
+        type: '',
         password: '',
         date_of_birth: '',
         gender: ''
@@ -28,7 +28,7 @@ const CrmUserEdit = ({ user }) => {
                 name: user.name || '',
                 mobile: user.mobile || '',
                 email: user.email || '',
-                user_type: user.user_type || '',
+                type: user.type || '',
                 password: '',
                 date_of_birth: user.date_of_birth || '',
                 gender: user.gender || ''
@@ -131,10 +131,10 @@ const CrmUserEdit = ({ user }) => {
                                 </div>
                                 <select
                                     className="border-input file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                                    name="user_type"
-                                    id="user_type"
-                                    value={data.user_type}
-                                    onChange={(e) => setData('user_type', e.target.value)}
+                                    name="type"
+                                    id="type"
+                                    value={data.type}
+                                    onChange={(e) => setData('type', e.target.value)}
                                 >
                                     <option value="0">User</option>
                                     <option value="1">Agent</option>

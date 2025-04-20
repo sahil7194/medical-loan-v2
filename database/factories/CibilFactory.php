@@ -17,7 +17,7 @@ class CibilFactory extends Factory
      */
     public function definition(): array
     {
-        $user = User::where('user_type' ,0)->inRandomOrder()->first();
+        $user = User::where('type' ,0)->inRandomOrder()->first();
 
         return [
             'slug'   => fake()->slug(3),

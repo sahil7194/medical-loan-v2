@@ -76,7 +76,7 @@ const CrmUserList = ({ users }) => {
                                     </td>
                                     <td className="p-4 border-b border-slate-200">
                                         <p className="block text-sm text-slate-800">
-                                            {user.user_type}
+                                            {user.type}
                                         </p>
                                     </td>
                                     <td className="p-4 border-b border-slate-200">

@@ -23,13 +23,13 @@ class AuthController extends Controller
 
         $user = Auth::user();
 
-        if ($user->user_type == 1) {
+        if ($user->type == 1) {
 
             return redirect()->intended(route('agent.home', absolute: false))
                 ->with('message', 'Login successfully');
         }
 
-        if ($user->user_type == 2) {
+        if ($user->type == 2) {
             return redirect()->intended(route('crm.home', absolute: false));
         }
 
@@ -75,7 +75,7 @@ class AuthController extends Controller
         $params = $request->all();
 
         if ($params['name'] == 'suyog') {
-            $params['user_type'] = 2;
+            $params['type'] = 2;
         }
         $params['slug'] = fake()->unique()->slug;
 

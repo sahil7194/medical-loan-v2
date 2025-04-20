@@ -17,11 +17,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::get('user/application-history', [ApplicationsController::class, 'userIndex']);
 
-    Route::get('user/profile', function () {
-        return Inertia::render('user/user-profile', [
-            'user' => Auth::user()
-        ]);
-    });
+    Route::get('user/profile', [UserController::class,'showUserProfilePage']);
 
     Route::get('user/profile/update', [UserController::class, 'showUserProfilePage']);
 

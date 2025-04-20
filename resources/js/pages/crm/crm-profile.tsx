@@ -4,20 +4,18 @@ import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 import { Label } from '@radix-ui/react-dropdown-menu'
 
-const AgentProfile = ({user}) => {
-
-    console.log(user);
+const CrmProfile = ({user}) => {
 
   return (
     <AppLayout>
-    <Head title='User Profile' />
+    <Head title='Crm User Profile' />
     <Card className="w-full max-w-4xl mx-auto p-6">
 
         <CardContent>
 
             <div className="mt-10 bg-white shadow-lg rounded-lg p-6">
                 <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
-                   Agent Basic Info
+                    Basic Info
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -116,4 +114,4 @@ const AgentProfile = ({user}) => {
   )
 }
 
-export default AgentProfile
+export default CrmProfile

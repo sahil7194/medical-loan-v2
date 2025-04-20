@@ -21,7 +21,7 @@ const signupUrl = "/login";
 type SignupForm = {
     name: string;
     mobile: string;
-    user_type: string;
+    type: string;
     email: string;
     password: string;
 };
@@ -32,7 +32,7 @@ const AgentSingup = () => {
     const { data, setData, post, processing, errors,reset } = useForm<Required<SignupForm>>({
         name: '',
         mobile: '',
-        user_type: 1,
+        type: 1,
         email: '',
         password: '',
     });

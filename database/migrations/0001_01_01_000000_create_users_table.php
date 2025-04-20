@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('gender');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('user_type');
+            $table->string('type');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -25,9 +25,9 @@ class CibilController extends Controller
 
     public function checkCibilView()
     {
-        $states = State::all();
+        $states = State::orderBy('name')->get();
 
-        $cities = City::all();
+        $cities = City::orderBy('name')->get();
 
         return Inertia::render('Cibil/cibil-check', [
             'states' => $states,
@@ -37,47 +37,14 @@ class CibilController extends Controller
 
     public function checkCibil(Request $request)
     {
-        $addressParams = [
-            'address'   => $request->address,
-            'pin_code'  => $request->pin_code,
-            // 'city_id'      => $request->state_id,
-            // 'state_id'     => $request->city_id,
-            'city_id'      => 1,
-            'state_id'     => 1,
-        ];
 
-        $address = Address::create($addressParams);
+        $user = $this->createUser($request->all());
 
-        $userParams = [
-            'slug'              => fake()->unique()->slug(2),
-            'name'              => $request->full_name,
-            'email'             => $request->email,
-            'mobile'            => $request->mobile,
-            'email_verified_at' => now(),
-            'password'          => null,
-            'remember_token'    => Str::random(10),
-            'user_type'         => '0',
-            'address_id'        => $address->id,
-            "date_of_birth"     => $request->date_of_birth,
-            "gender"            => $request->gender
-        ];
+        $address = $this->createAddress($request->all(), $user);
 
-        $user = User::create($userParams);
+        $cibil = $this->createCibil($request->all(), $user);
 
-        $cibilParams = [
-            'slug'   => fake()->slug(3),
-            "score"   => fake()->numberBetween(700, 950),
-            "vendor"  => fake()->randomElement(["a", "b"]),
-            "user_id" => $user->id,
-            "name"    => $request->full_name,
-            "email"   => $request->email,
-            "mobile"  => $request->mobile,
-            "pan_card" => $request->pan_card_number
-        ];
-
-        $cibil = Cibil::create($cibilParams);
-
-        return response()->redirectTo('cibil-result/'.$cibil->slug);
+        return response()->redirectTo('cibil-result/' . $cibil->slug);
     }
 
     public function cibilResult(string $slug)
@@ -87,5 +54,55 @@ class CibilController extends Controller
         return Inertia::render('Cibil/cibil-result', [
             'cibil' => $cibil
         ]);
+    }
+
+    private function createUser(array $data): User
+    {
+        $userParams = [
+            'slug'              => fake()->unique()->slug(2),
+            'name'              => $data['full_name'],
+            'email'             => $data['email'],
+            'mobile'            => $data['mobile'],
+            'email_verified_at' => now(),
+            'password'          => null,
+            'remember_token'    => Str::random(10),
+            'type'         => '0',
+            "date_of_birth"     => $data['date_of_birth'],
+            "gender"            => $data['gender']
+        ];
+
+        return User::create($userParams);
+    }
+
+    private function createAddress(array $data, $user): Address
+    {
+        // need to update on front
+        $city = City::where('state_id',$data['state_id'])->first();
+
+        $addressParams = [
+            'address'   => $data['address'],
+            'pin_code'  => $data['pin_code'],
+            'city_id'   => $city->id,
+            'state_id'  => $data['state_id'],
+            'user_id'   => $user->id
+        ];
+
+        return Address::create($addressParams);
+    }
+
+    private function createCibil(array $data, User $user): Cibil
+    {
+        $cibilParams = [
+            'slug'   => fake()->slug(3),
+            "score"   => fake()->numberBetween(700, 950),
+            "vendor"  => fake()->randomElement(["a", "b"]),
+            "user_id" => $user->id,
+            "name"    => $data['full_name'],
+            "email"   => $data['email'],
+            "mobile"  => $data['mobile'],
+            "pan_card" => $data['pan_card_number']
+        ];
+
+        return Cibil::create($cibilParams);
     }
 }

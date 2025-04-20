@@ -27,7 +27,7 @@ class ApplicationsFactory extends Factory
             'remarks' => fake()->text(),
             'scheme_id' => $scheme->id,
             'user_id' => $userId,
-            'agent_id' => User::where('user_type', 1)->inRandomOrder()->first()->id,
+            'agent_id' => User::where('type', 1)->inRandomOrder()->first()->id,
         ];
     }
 }

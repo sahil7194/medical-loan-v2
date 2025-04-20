@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
-Route::middleware('agent')->group(function(){
+Route::middleware(['auth','staff'])->group(function(){
 
 
 Route::get('/crm/home', function () {
@@ -60,5 +60,6 @@ Route::get('crm/users/{slug}/edit', [UserController::class, 'edit']);
 Route::put('crm/users/{slug}/edit', [UserController::class, 'update'])->name('crm.users.edit');
 Route::get('crm/users/{slug}/delete', [UserController::class, 'destroy']);
 
+Route::get('/crm/profile', [UserController::class,'showUserProfilePage']);
 
 });

@@ -18,7 +18,7 @@ class StaffMiddleware
     {
         $user = Auth::user();
 
-        if (!$user && !$user?->type === 2) {
+        if (!($user && $user?->type == 2)) {
             return response()->redirectTo('/login');
         }
 

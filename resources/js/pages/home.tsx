@@ -17,7 +17,7 @@ const Home = () => {
                 {/* {auth.user.name}
                 {auth.user.email}
                 {auth.user.avatar}
-                {auth.user.user_type} */}
+                {auth.user.type} */}
             </div>
         </AppLayout>
 

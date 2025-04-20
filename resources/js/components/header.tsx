@@ -22,7 +22,7 @@ const Header = () => {
     }
 
     if (auth.user) {
-        if (auth.user.user_type == 0) {
+        if (auth.user.type == 0) {
 
             navLinks.unshift({ href: '/user/home', label: 'Home' });
 
@@ -33,7 +33,7 @@ const Header = () => {
             ]);
         }
 
-        if (auth.user.user_type == 1) {
+        if (auth.user.type == 1) {
 
 
             navLinks = [
@@ -47,7 +47,7 @@ const Header = () => {
             ];
         }
 
-        if (auth.user.user_type == 2) {
+        if (auth.user.type == 2) {
 
             navLinks = [
                 { href: '/crm/home', label: 'Home' },
@@ -57,6 +57,7 @@ const Header = () => {
                 { href: '/crm/bank', label: 'Banks' },
                 { href: '/crm/application-history', label: 'Application History' },
                 { href: '/crm/cibil-log', label: 'Cibil Log' },
+                { href: '/crm/profile', label: 'Profile' },
             ];
         }
     }
@@ -79,7 +80,7 @@ const Header = () => {
                 <div className="flex items-center gap-6 md:gap-10">
                     <a href="/" className="flex items-center space-x-2">
                         <span className="text-xl font-bold text-primary">
-                            Medical Loan Buddy
+                        Emergency Credit
                         </span>
                     </a>
                     <nav className="hidden gap-6 md:flex">

@@ -42,7 +42,7 @@ const Footer = () => {
           <div className="col-span-2 lg:col-span-1">
             <a href="/" className="inline-block">
               <span className="text-xl font-bold text-primary">
-                Medical Loan Buddy
+              Emergency Credit
               </span>
             </a>
             <p className="mt-4 text-sm text-slate-600">
