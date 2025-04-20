@@ -80,7 +80,7 @@ const Header = () => {
                 <div className="flex items-center gap-6 md:gap-10">
                     <a href="/" className="flex items-center space-x-2">
                         <span className="text-xl font-bold text-primary">
-                        Emergency Credit
+                            Emergency Credit
                         </span>
                     </a>
                     <nav className="hidden gap-6 md:flex">
@@ -101,6 +101,13 @@ const Header = () => {
 
                         {auth.user ? (
                             <>
+
+                                <Button variant="outline" asChild className="w-full">
+                                    <a>
+                                     {auth.user.name}
+                                    </a>
+                                </Button>
+
                                 <Button
                                     variant="outline"
                                     asChild className="w-full"

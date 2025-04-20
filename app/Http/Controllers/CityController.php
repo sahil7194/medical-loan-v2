@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
+
+    public function filterByState(Request $request)
+    {
+        $cities = City::where('state_id', $request->state_id)->get();
+
+        return response()->json($cities);
+    }
+
     /**
      * Display a listing of the resource.
      */

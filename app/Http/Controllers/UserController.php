@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\State;
 use App\Models\User;
 use Inertia\Inertia;
 
@@ -43,14 +45,6 @@ class UserController extends Controller
         return response()->redirectTo('/crm/users');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
     public function edit(string $slug)
     {
         $user = User::where('slug', $slug)->first();
@@ -60,28 +54,63 @@ class UserController extends Controller
 
     public function showUserProfilePage()
     {
-        $user = User::find(Auth::user()->id)->with('address','address.state','address.city')->first();
-
-
+        $user = User::where('id', Auth::user()->id)
+            ->with('address', 'address.state', 'address.city')
+            ->first();
 
         if ($user->type == 1) {
-            return Inertia::render('agent/agent-profile',[
+
+            return Inertia::render('agent/agent-profile', [
                 'user' => $user
             ]);
-
         }
 
         if ($user->type == 2) {
-            return Inertia::render('crm/crm-profile',[
+
+            return Inertia::render('crm/crm-profile', [
                 'user' => $user
             ]);
         }
 
-
-        return Inertia::render('user/user-profile',[
+        return Inertia::render('user/user-profile', [
             'user' => $user
         ]);
     }
+
+    public function showUserProfileUpdatePage()
+    {
+        $user = User::where('id', Auth::user()->id)
+            ->with('address', 'address.state', 'address.city')
+            ->first();
+
+        $states = State::orderBy('name')->get();
+
+        $cities = City::orderBy('name')->get();
+
+        if ($user->type == 1) {
+            return Inertia::render('agent/agent-update-profile', [
+                'user' => $user,
+                'states' => $states,
+                'cities' => $cities,
+            ]);
+        }
+
+        if ($user->type == 2) {
+            return Inertia::render('crm/crm-update-profile', [
+                'user' => $user,
+                'states' => $states,
+                'cities' => $cities,
+            ]);
+        }
+
+        return Inertia::render('user/user-update-profile', [
+            'user' => $user,
+            'states' => $states,
+            'cities' => $cities,
+        ]);
+    }
+
+
     /**
      * Update the specified resource in storage.
      */
@@ -96,11 +125,27 @@ class UserController extends Controller
             unset($params['password']);
         }
 
-        $user->update($params);
+        $userParams =  [
+            "name" => $request->name,
+            "email" => $request->email,
+            "mobile" => $request->mobile,
+            "gender" => $request->gender,
+            "date_of_birth" => $request->date_of_birth
+        ];
+
+        $addresParmas = [
+            "address" => $request->address,
+            "city_id" => $request->city_id,
+            "state_id" => $request->state_id,
+            "pin_code" => $request->pin_code,
+        ];
+
+        $user->update($userParams);
+
+        $user->address()->update($addresParmas);
 
         if ($user->type == 1) {
             return response()->redirectTo('/agent/profile');
-
         }
 
         if ($user->type == 2) {

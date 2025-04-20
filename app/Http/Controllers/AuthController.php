@@ -7,7 +7,9 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class AuthController extends Controller
@@ -56,6 +58,7 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
+        Cache::clear();
 
         return redirect('/');
     }

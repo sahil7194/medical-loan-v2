@@ -15,7 +15,7 @@ Route::middleware(['auth','agent'])->group(function () {
 
     Route::get('agent/profile', [UserController::class,'showUserProfilePage']);
 
-    Route::get('agent/profile/update', [UserController::class,'showUserProfilePage']);
+    Route::get('agent/profile/update', [UserController::class, 'showUserProfileUpdatePage'])->name('agent.profile.update.show');
 
     Route::get('agent/reference-history', [ApplicationsController::class, 'agentIndex']);
 

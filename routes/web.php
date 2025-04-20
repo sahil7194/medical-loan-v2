@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CibilController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\SchemeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -47,3 +48,4 @@ Route::post('cibil-check', [CibilController::class,'checkCibil'])->name('cibil.c
 
 Route::get('cibil-result/{slug}', [CibilController::class,'cibilResult']);
 
+Route::get('cities', [CityController::class,'filterByState']);

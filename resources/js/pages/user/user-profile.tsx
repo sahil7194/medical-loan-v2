@@ -6,6 +6,14 @@ import { Label } from '@radix-ui/react-dropdown-menu'
 
 const UserProfile = ({ user }) => {
 
+    const { get } = useForm<Required<any>>();
+
+    const edit = (e) => {
+        e.preventDefault();
+        get(route('user.profile.update.show'), {
+        });
+    }
+
     return (
         <AppLayout>
             <Head title='User Profile' />
@@ -100,6 +108,7 @@ const UserProfile = ({ user }) => {
                         <Button
                             variant="outline"
                             asChild className="w-full"
+                            onClick={edit}
                         >
                             <a >
                                 Edit

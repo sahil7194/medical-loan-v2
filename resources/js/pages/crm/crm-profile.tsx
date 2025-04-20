@@ -1,10 +1,18 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import AppLayout from '@/layouts/app-layout'
-import { Head } from '@inertiajs/react'
+import { Head, useForm } from '@inertiajs/react'
 import { Label } from '@radix-ui/react-dropdown-menu'
 
 const CrmProfile = ({user}) => {
+
+    const { get } = useForm<Required<any>>();
+
+    const edit = (e)=>{
+        e.preventDefault();
+        get(route('crm.profile.update.show'), {
+        });
+    }
 
   return (
     <AppLayout>
@@ -15,7 +23,7 @@ const CrmProfile = ({user}) => {
 
             <div className="mt-10 bg-white shadow-lg rounded-lg p-6">
                 <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
-                    Basic Info
+                   Crm Basic Info
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -100,6 +108,7 @@ const CrmProfile = ({user}) => {
                 <Button
                     variant="outline"
                     asChild className="w-full"
+                    onClick={edit}
                 >
                     <a >
                         Edit

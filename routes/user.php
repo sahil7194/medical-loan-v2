@@ -19,7 +19,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::get('user/profile', [UserController::class,'showUserProfilePage']);
 
-    Route::get('user/profile/update', [UserController::class, 'showUserProfilePage']);
+    Route::get('user/profile/update', [UserController::class, 'showUserProfileUpdatePage'])->name('user.profile.update.show');
 
-    Route::post('user/profile/update', [UserController::class, 'update'])->name('user.update');
+    Route::put('user/profile/update', [UserController::class, 'update'])->name('user.update');
 });

@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import AppLayout from '@/layouts/app-layout'
 import { Head, useForm } from '@inertiajs/react'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import { LoaderCircle } from 'lucide-react'
-import { FormEventHandler } from 'react'
+import React, { FormEventHandler } from 'react'
 
-const AgentUpdateProfile = ({ user, states, cities }) => {
+const CrmUpdateProfile = ({ user, states, cities }) => {
     const { data, setData, put, processing, reset } = useForm({
         name: user?.name || '',
         email: user?.email || '',
@@ -165,6 +165,6 @@ const AgentUpdateProfile = ({ user, states, cities }) => {
             </Card>
         </AppLayout>
     );
-}
+};
 
-export default AgentUpdateProfile
+export default CrmUpdateProfile;

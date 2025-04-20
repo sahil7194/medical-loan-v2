@@ -17,6 +17,8 @@ class UserMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
+        $user = Auth::user();
+
         if (!($user->type == 0)) {
             return response()->redirectTo('/login');
         }
