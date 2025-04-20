@@ -17,11 +17,9 @@ Route::get('/crm/home', function () {
     return Inertia::render('crm/crm-home');
 })->name('crm.home');
 
-
 Route::get('/crm/cibil-log',[CibilController::class,'cibilLog']);
 
 Route::get('/crm/application-history', [ApplicationsController::class,'crmIndex']);
-
 
 // bank
 Route::get('crm/bank/', [BankController::class, 'index']);
@@ -61,5 +59,9 @@ Route::put('crm/users/{slug}/edit', [UserController::class, 'update'])->name('cr
 Route::get('crm/users/{slug}/delete', [UserController::class, 'destroy']);
 
 Route::get('/crm/profile', [UserController::class,'showUserProfilePage']);
+
+Route::get('user/profile/update', [UserController::class, 'showUserProfileUpdatePage'])->name('crm.profile.update.show');
+
+Route::put('crm/profile/update', [UserController::class, 'update'])->name('crm.update');
 
 });

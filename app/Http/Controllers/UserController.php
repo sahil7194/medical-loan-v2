@@ -149,7 +149,7 @@ class UserController extends Controller
         }
 
         if ($user->type == 2) {
-            return response()->redirectTo('/agent/profile');
+            return response()->redirectTo('/crm/profile');
         }
 
         return response()->redirectTo('/user/profile');

@@ -10,6 +10,7 @@ import axios from 'axios'
 
 
 const UserUpdateProfile = ({ user, states }) => {
+
     const { data, setData, put, processing, reset } = useForm({
         name: user?.name || '',
         email: user?.email || '',

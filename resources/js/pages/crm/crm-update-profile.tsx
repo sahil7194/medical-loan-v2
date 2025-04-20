@@ -5,9 +5,11 @@ import AppLayout from '@/layouts/app-layout'
 import { Head, useForm } from '@inertiajs/react'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import { LoaderCircle } from 'lucide-react'
-import React, { FormEventHandler } from 'react'
+import React, { FormEventHandler, useEffect, useState } from 'react'
+import axios from 'axios'
 
 const CrmUpdateProfile = ({ user, states, cities }) => {
+
     const { data, setData, put, processing, reset } = useForm({
         name: user?.name || '',
         email: user?.email || '',
@@ -22,9 +24,55 @@ const CrmUpdateProfile = ({ user, states, cities }) => {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        put(route('user.update', user?.id), {
+        put(route('crm.update', user?.id), {
             onFinish: () => reset(),
         });
+    };
+
+    const [localCities, setLocalCities] = useState([]);
+    const [loadingCities, setLoadingCities] = useState(false);
+
+    // Fetch cities on initial mount if user already has a state
+    useEffect(() => {
+        const fetchCitiesForInitialState = async () => {
+            if (data.state_id) {
+                setLoadingCities(true);
+                try {
+                    const response = await axios.get(`/cities?state_id=${data.state_id}`);
+                    setLocalCities(response.data);
+                } catch (error) {
+                    console.error('Error fetching cities:', error);
+                    setLocalCities([]);
+                } finally {
+                    setLoadingCities(false);
+                }
+            } else {
+                setLocalCities(cities || []);
+            }
+        };
+
+        fetchCitiesForInitialState();
+    }, []);
+
+    const handleStateChange = async (e) => {
+        const selectedStateId = e.target.value;
+        setData('state_id', selectedStateId);
+        setData('city_id', ''); // reset city
+
+        if (selectedStateId) {
+            setLoadingCities(true);
+            try {
+                const response = await axios.get(`/cities?state_id=${selectedStateId}`);
+                setLocalCities(response.data);
+            } catch (error) {
+                console.error('Error fetching cities:', error);
+                setLocalCities([]);
+            } finally {
+                setLoadingCities(false);
+            }
+        } else {
+            setLocalCities([]);
+        }
     };
 
     return (
@@ -122,8 +170,9 @@ const CrmUpdateProfile = ({ user, states, cities }) => {
                                     id="state_id"
                                     className="border-input flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base"
                                     value={data.state_id}
-                                    onChange={(e) => setData('state_id', e.target.value)}
+                                    // onChange={(e) => setData('state_id', e.target.value)}
                                     required
+                                    onChange={handleStateChange}
                                 >
                                     <option value="">Select State</option>
                                     {states.map((state) => (
@@ -143,7 +192,7 @@ const CrmUpdateProfile = ({ user, states, cities }) => {
                                     required
                                 >
                                     <option value="">Select City</option>
-                                    {cities.map((city) => (
+                                    {localCities.map((city) => (
                                         <option key={city.id} value={city.id}>
                                             {city.name}
                                         </option>

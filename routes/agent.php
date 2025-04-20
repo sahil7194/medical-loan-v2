@@ -20,4 +20,7 @@ Route::middleware(['auth','agent'])->group(function () {
     Route::get('agent/reference-history', [ApplicationsController::class, 'agentIndex']);
 
     Route::get('/agent/refer/schemes', [AgentController::class, 'referSchemeList']);
+
+    Route::put('agent/profile/update', [UserController::class, 'update'])->name('agent.update');
+
 });
