@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CibilCheck\CibilCheckEmailSendOtpRequest;
+use App\Http\Requests\CibilCheck\CibilCheckMobileSendOtpRequest;
+use App\Http\Requests\CibilCheck\CibilCheckStoreAddressRequest;
+use App\Http\Requests\CibilCheck\CibilCheckUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\Address;
 use App\Models\Cibil;
 use App\Models\City;
@@ -37,7 +42,6 @@ class CibilController extends Controller
 
     public function checkCibil(Request $request)
     {
-
         $user = $this->createUser($request->all());
 
         $address = $this->createAddress($request->all(), $user);
@@ -77,7 +81,7 @@ class CibilController extends Controller
     private function createAddress(array $data, $user): Address
     {
         // need to update on front
-        $city = City::where('state_id',$data['state_id'])->first();
+        $city = City::where('state_id', $data['state_id'])->first();
 
         $addressParams = [
             'address'   => $data['address'],
@@ -104,5 +108,107 @@ class CibilController extends Controller
         ];
 
         return Cibil::create($cibilParams);
+    }
+
+    public function saveUserInfo(CibilCheckUserRequest $request)
+    {
+        $params = $request->validated();
+
+        $params['name'] = $request['full_name'];
+        $params['email'] = rand(11111,99999);
+        $params['mobile'] = rand(11111,99999);
+
+        $params['slug']  = fake()->unique()->slug(2);
+        $params['type']  = '0';
+
+        $user = User::create($params);
+
+        return response()->json([
+            "message" => "user saved",
+            "success" => true,
+            "data" => UserResource::make($user)
+        ]);
+    }
+
+    public function sendMobileOtp(CibilCheckMobileSendOtpRequest $request ,string $slug)
+    {
+        $user = User::where('slug', $slug)->first();
+
+        if (!$user) {
+            return response()->json([
+                "message" => "user not found",
+                "success" => false,
+                "data" => null
+            ]);
+        }
+
+        // TODO: need to validate create model store
+        $user->update($request->validated());
+
+        return response()->json([
+            "message" => "opt sent to you mobile number",
+            "success" => true,
+            "data" => [
+                "otp" => rand(1111,9999)
+            ]
+        ]);
+
+    }
+
+    public function verifyMobileOtp() {
+
+
+    }
+
+    public function sendEmailOtp(CibilCheckEmailSendOtpRequest $request, string $slug)
+    {
+        $user = User::where('slug', $slug)->first();
+
+        if (!$user) {
+            return response()->json([
+                "message" => "user not found",
+                "success" => false,
+                "data" => null
+            ]);
+        }
+
+        // TODO: need to validate create model store
+        $user->update($request->validated());
+
+        return response()->json([
+            "message" => "opt sent to your email number",
+            "success" => true,
+            "data" => [
+                "otp" => rand(1111,9999)
+            ]
+        ]);
+    }
+
+    public function verifyEmailOtp() {}
+
+    public function saveAddressInfo(CibilCheckStoreAddressRequest $request,string $slug)
+    {
+        $user = User::where('slug', $slug)->with('address')->first();
+
+        if (!$user) {
+            return response()->json([
+                "message" => "user not found",
+                "success" => false,
+                "data" => null
+            ]);
+        }
+
+        // TODO: need to validate create model store
+
+        $user->address()->create($request->validated());
+
+        return response()->json([
+            "message" => "opt sent to you mobile number",
+            "success" => true,
+            "data" => [
+                "user" => $user,
+            //     "address" => $user->address
+            ]
+        ]);
     }
 }
