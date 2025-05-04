@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BlogListItemResource;
+use App\Http\Resources\BlogResource;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +15,13 @@ class BlogController extends Controller
     {
         $blogs = Blog::orderByDesc('created_at')->with('user')->get();
 
-        return Inertia::render('Blogs/blogs', ['blogs' => $blogs]);
+        // return Inertia::render('Blogs/blogs', ['blogs' => $blogs]);
+
+        return response()->json([
+            "message" => "blogs list",
+            "success" => true,
+            "blogs" => BlogListItemResource::collection( $blogs)
+        ]);
     }
 
     public function show($slug)

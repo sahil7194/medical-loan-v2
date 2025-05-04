@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\SignupRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,32 +19,22 @@ class AuthController extends Controller
     //
     public function login(LoginRequest $request)
     {
-        $request->authenticate();
+        $params = $request->validated();
 
-        $request->session()->regenerate();
+        if ($token = Auth::attempt($params)) {
 
-        $request->session()->flash('success', 'Your action was successful!');
-
-        $user = Auth::user();
-
-        if ($user->type == 1) {
-
-            return redirect()->intended(route('agent.home', absolute: false))
-                ->with('message', 'Login successfully');
+            return response()->json([
+                "message" => 'login successfully done',
+                "success" => true,
+                "user"    =>  UserResource::make(Auth::user()),
+                "token"   => $token
+            ], 200);
         }
 
-        if ($user->type == 2) {
-            return redirect()->intended(route('crm.home', absolute: false));
-        }
-
-        $params = $request->all();
-
-        if ($params['redirect_url']) {
-
-           return response()->redirectTo('schemes/' . $params['redirect_url']);
-        }
-
-        return redirect()->intended(route('user.home', absolute: false));
+        return response()->json([
+            "message" => 'user name or password invalid',
+            "success" => false
+        ]);
     }
 
     public function showLoginPage()
@@ -73,7 +65,7 @@ class AuthController extends Controller
         return Inertia::render('auth/singup');
     }
 
-    public function signup(Request $request)
+    public function signup(SignupRequest $request)
     {
         $params = $request->all();
 
@@ -82,14 +74,24 @@ class AuthController extends Controller
         }
         $params['slug'] = fake()->unique()->slug;
 
-        $params['date_of_birth'] = '';
-        $params['gender'] = '';
-
-
         $user = User::create($params);
 
-        Auth::login($user);
+        if ($token = Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ])) {
+            return response()->json([
+                "message" => 'login successfully done',
+                "success" => true,
+                "user"    => UserResource::make(Auth::user()),
+                "token"   => $token
+            ], 200);
+        }
 
-        return redirect('/');
+
+        return response()->json([
+            "message" => 'user name or password invalid',
+            "success" => false
+        ]);
     }
 }
