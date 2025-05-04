@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Blog\StoreBlogRequest;
+use App\Http\Requests\Blog\UpdateBlogRequest;
 use App\Http\Resources\BlogListItemResource;
 use App\Http\Resources\BlogResource;
 use App\Models\Blog;
@@ -20,7 +22,7 @@ class BlogController extends Controller
         return response()->json([
             "message" => "blogs list",
             "success" => true,
-            "blogs" => BlogListItemResource::collection( $blogs)
+            "data" => BlogListItemResource::collection($blogs)
         ]);
     }
 
@@ -28,7 +30,19 @@ class BlogController extends Controller
     {
         $blog = Blog::where('slug', $slug)->with('user')->first();
 
-        return Inertia::render('Blogs/blog', ['blog' => $blog]);
+        return response()->json([
+            "message" => "blog data",
+            "success" => true,
+            "data" => BlogResource::make($blog)
+        ]);
+
+        if (!$blog) {
+            return response()->json([
+                "message" => "blog not found",
+                "success" => false,
+                "data" => null
+            ]);
+        }
     }
 
     public function crmIndex()
@@ -46,9 +60,9 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBlogRequest $request)
     {
-        $params = $request->all();
+        $params = $request->validated();
 
         $params['slug'] = fake()->unique()->slug;
 
@@ -58,11 +72,17 @@ class BlogController extends Controller
 
         $params['status'] = '2';
 
-        $params['user_id'] = Auth::user()->id;
+        // TODO: need to fix  with auth user
+        $params['user_id'] = Auth::guard('api')->user()?->id ?? 1;
 
-        Blog::create($params);
 
-        return response()->redirectTo('/crm/blog/');
+        $blog =    Blog::create($params);
+
+        return response()->json([
+            "message" => "blog created successfully",
+            "success" => true,
+            "data" => BlogResource::make($blog)
+        ]);
     }
 
     /**
@@ -84,19 +104,27 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(UpdateBlogRequest $request, string $slug)
     {
-        $user = Blog::where('slug', $slug)->first();
+        $blog = Blog::where('slug', $slug)->first();
 
-        $params = $request->all();
-
-        if (empty($params['password'])) {
-            unset($params['password']);
+        if (!$blog) {
+            return response()->json([
+                "message" => "blog not found",
+                "success" => false,
+                "data" => null
+            ]);
         }
 
-        $user->update($params);
+        $params = $request->validated();
 
-        return response()->redirectTo('/crm/blog/');
+        $blog->update($params);
+
+        return response()->json([
+            "message" => "blog update successfully",
+            "success" => true,
+            "data" => BlogResource::make($blog)
+        ]);
     }
 
     /**
@@ -104,10 +132,22 @@ class BlogController extends Controller
      */
     public function destroy(string $slug)
     {
-        $user = Blog::where('slug', $slug)->first();
+        $blog = Blog::where('slug', $slug)->first();
 
-        $user->delete();
+        if (!$blog) {
+            return response()->json([
+                "message" => "blog not found",
+                "success" => false,
+                "data" => null
+            ]);
+        }
 
-        return response()->redirectTo('/crm/blog/');
+        $blog->delete();
+
+        return response()->json([
+            "message" => "blog deleted successfully",
+            "success" => true,
+            "data" => null
+        ]);
     }
 }
