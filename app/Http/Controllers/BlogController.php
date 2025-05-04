@@ -17,8 +17,6 @@ class BlogController extends Controller
     {
         $blogs = Blog::orderByDesc('created_at')->with('user')->get();
 
-        // return Inertia::render('Blogs/blogs', ['blogs' => $blogs]);
-
         return response()->json([
             "message" => "blogs list",
             "success" => true,
@@ -30,12 +28,6 @@ class BlogController extends Controller
     {
         $blog = Blog::where('slug', $slug)->with('user')->first();
 
-        return response()->json([
-            "message" => "blog data",
-            "success" => true,
-            "data" => BlogResource::make($blog)
-        ]);
-
         if (!$blog) {
             return response()->json([
                 "message" => "blog not found",
@@ -43,6 +35,14 @@ class BlogController extends Controller
                 "data" => null
             ]);
         }
+
+        return response()->json([
+            "message" => "blog data",
+            "success" => true,
+            "data" => BlogResource::make($blog)
+        ]);
+
+
     }
 
     public function crmIndex()
