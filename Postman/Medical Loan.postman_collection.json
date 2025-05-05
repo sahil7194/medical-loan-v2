@@ -1,0 +1,499 @@
+{
+	"info": {
+		"_postman_id": "2e0fda68-cc12-430c-a1fb-cac69c4f8121",
+		"name": "Medical Loan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33962379"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test@example.com\",\n    \"password\":\"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"mobile\": \"7083736757\",\n  \"type\": 0,\n  \"email\": \"testrede@example.com\",\n  \"password\": \"secret123\",\n  \"gender\": \"male\",\n  \"date_of_birth\": \"1990-05-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Blogs",
+			"item": [
+				{
+					"name": "Get Blog List for guest User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/blogs",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"blogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Blog",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/blogs/nihil-et-commodi-labore",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"blogs",
+								"nihil-et-commodi-labore"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Blog",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The title field is reqfeqguired.\",\n    \"summary\": \"The summary field isqfw required.\",\n    \"content\": \"The summary field iswfwfw required\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/blogs",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"blogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Blog",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Sample Blog Post\",\n  \"summary\": \"This is a short summary of the blog post.\",\n  \"content\": \"Here is the full content of the blog post. It goes into more detail about the topic and provides insights.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/blogs/ut-et-voluptatem-minus-dolorem",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"blogs",
+								"ut-et-voluptatem-minus-dolorem"
+							]
+						},
+						"description": "blog can update using slug which shoud be already created"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/blogs/ea-debitis-facilis-voluptas-vitae",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"blogs",
+								"ea-debitis-facilis-voluptas-vitae"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schemes",
+			"item": [
+				{
+					"name": "Get Schemes List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/schemes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"schemes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Scheme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/schemes/amet-commodi-voluptas-exercitationem-occaecati-dolores-autem-adipisci",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"schemes",
+								"amet-commodi-voluptas-exercitationem-occaecati-dolores-autem-adipisci"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Scheme",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Personal Loan\",\n    \"summary\": \"Low interest personal loan\",\n    \"description\": \"This loan offers flexible repayment options and competitive interest rates.\",\n    \"max_amount\": \"1000000\",\n    \"min_amount\": \"50000\",\n    \"max_cibil\": \"900\",\n    \"min_cibil\": \"650\",\n    \"max_interest_rate\": \"18.5\",\n    \"min_interest_rate\": \"10.5\",\n    \"max_tenure\": \"60\",\n    \"min_tenure\": \"12\",\n    \"redirection_link\": \"https://www.bankexample.com/apply\",\n    \"bank_id\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/schemes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"schemes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Scheme",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Home Loan Offer\",\n  \"summary\": \"Get a home loan at competitive rates\",\n  \"description\": \"We offer home loans with low interest and flexible repayment options.\",\n  \"max_amount\": \"7500000\",\n  \"min_amount\": \"100000\",\n  \"max_cibil\": \"900\",\n  \"min_cibil\": \"700\",\n  \"max_interest_rate\": \"14.5\",\n  \"min_interest_rate\": \"8.5\",\n  \"max_tenure\": \"240\",\n  \"min_tenure\": \"12\",\n  \"redirection_link\": \"https://www.bankwebsite.com/home-loan/apply\",\n  \"bank_id\": \"1\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/schemes/repudiandae-possimus-nemo-mollitia-eum-hic-laudantium",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"schemes",
+								"repudiandae-possimus-nemo-mollitia-eum-hic-laudantium"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Scheme",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/schemes/aspernatur-vitae-rerum-qui-qui-omnis-atque",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"schemes",
+								"aspernatur-vitae-rerum-qui-qui-omnis-atque"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Check Cibil Score",
+			"item": [
+				{
+					"name": "Save User While Check Cibil",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"full_name\": \"Ravi Kumar\",\n  \"date_of_birth\": \"1992-06-15\",\n  \"gender\": \"Male\",\n  \"pan_card_number\": \"ABCDE1234F\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/check-cibil/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"check-cibil",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Otp To Mobile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mobile\": \"12345678903\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/check-cibil/user/ducimus-minima/mobile-otp",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"check-cibil",
+								"user",
+								"ducimus-minima",
+								"mobile-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Otp To Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/check-cibil/user/tempora-officia/email-otp",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"check-cibil",
+								"user",
+								"tempora-officia",
+								"email-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Address for User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"address\": \"123 MG Road, Sector 5\",\n  \"pin_code\": \"560001\",\n  \"city_id\": 10,\n  \"state_id\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/check-cibil/user/accusamus-optio-quibusdam-corporis-ut-ipsum-quaerat/address-info",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"check-cibil",
+								"user",
+								"accusamus-optio-quibusdam-corporis-ut-ipsum-quaerat",
+								"address-info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
