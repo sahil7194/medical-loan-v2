@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class,'login']);
 Route::post('signup', [AuthController::class,'signup']);
 
+Route::middleware(['auth:api'])->group(function () {
+
+    Route::post('logout', [AuthController::class, 'destroy'])
+            ->name('logout');
+
+    Route::get('profile', [AuthController::class, 'profile']);
+});
+
 
 Route::apiResource('blogs', BlogController::class);
 Route::apiResource('schemes', SchemeController::class);

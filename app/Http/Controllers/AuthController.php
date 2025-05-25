@@ -6,12 +6,9 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\SignupRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class AuthController extends Controller
@@ -42,17 +39,14 @@ class AuthController extends Controller
         return Inertia::render('auth/login');
     }
 
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request): JsonResponse
     {
-        Auth::guard('web')->logout();
+        Auth::guard('api')->logout();
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        Cache::clear();
-
-        return redirect('/');
+         return response()->json([
+                "message" => 'successfully logout',
+                "success" => true,
+            ], 200);
     }
 
     public function showSignupPage()
@@ -67,7 +61,7 @@ class AuthController extends Controller
 
     public function signup(SignupRequest $request)
     {
-        $params = $request->all();
+        $params = $request->validated();
 
         if ($params['name'] == 'suyog') {
             $params['type'] = 2;
@@ -76,9 +70,9 @@ class AuthController extends Controller
 
         $user = User::create($params);
 
-        if ($token = Auth::attempt([
-            'email' => $request->email,
-            'password' => $request->password
+        if ($token = Auth::guard('api')->attempt([
+            'email' => $request['email'],
+            'password' => $request['password']
         ])) {
             return response()->json([
                 "message" => 'login successfully done',
@@ -93,5 +87,12 @@ class AuthController extends Controller
             "message" => 'user name or password invalid',
             "success" => false
         ]);
+    }
+
+    public function profile()
+    {
+       $user = User::find(Auth::user()->id)->with('address')->first();
+
+       return $user;
     }
 }
