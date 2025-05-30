@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OTPController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,3 +31,6 @@ Route::get('/forget-password', function (){
 Route::get('/reset-password', function (){
     return Inertia::render('auth/reset-password');
 });
+
+
+

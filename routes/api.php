@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CibilController;
+use App\Http\Controllers\OTPController;
 use App\Http\Controllers\SchemeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,13 @@ Route::middleware(['auth:api'])->group(function () {
             ->name('logout');
 
     Route::get('profile', [AuthController::class, 'profile']);
+});
+
+Route::controller(OTPController::class)->group(function(){
+
+    Route::post('request-opt', 'requestOtp');
+    Route::post('verify-opt', 'verifyOtp');
+
 });
 
 
