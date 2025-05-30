@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Authentication",
+			"name": "Unthentication",
 			"item": [
 				{
 					"name": "Login",
@@ -148,6 +148,46 @@
 							],
 							"path": [
 								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "States",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/states",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"states"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cities?state_id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cities"
+							],
+							"query": [
+								{
+									"key": "state_id",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -478,7 +518,7 @@
 					"response": []
 				},
 				{
-					"name": "Send Otp To Mobile",
+					"name": "Request OTP",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -490,7 +530,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"mobile\": \"12345678903\"\n}",
+							"raw": "{\n    \"user_identifier\" : 7083736757,\n    \"slug\" : \"corrupti-vero\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -498,22 +538,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/check-cibil/user/ducimus-minima/mobile-otp",
+							"raw": "{{url}}/request-opt",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"check-cibil",
-								"user",
-								"ducimus-minima",
-								"mobile-otp"
+								"request-opt"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Send Otp To Email",
+					"name": "Verify OTP Copy",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -523,16 +560,22 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_identifier\" : 7083736757,\n    \"otp\":210740,\n    \"slug\" : \"corrupti-vero\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}/check-cibil/user/tempora-officia/email-otp",
+							"raw": "{{url}}/verify-opt",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"check-cibil",
-								"user",
-								"tempora-officia",
-								"email-otp"
+								"verify-opt"
 							]
 						}
 					},
@@ -559,15 +602,183 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/check-cibil/user/accusamus-optio-quibusdam-corporis-ut-ipsum-quaerat/address-info",
+							"raw": "{{url}}/check-cibil/user/corrupti-vero/address-info",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"check-cibil",
 								"user",
-								"accusamus-optio-quibusdam-corporis-ut-ipsum-quaerat",
+								"corrupti-vero",
 								"address-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Address for User Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"slug\": \"iusto-voluptas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/cibil-check",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cibil-check"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authenticated User",
+			"item": [
+				{
+					"name": "Get Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test@example.com\",\n    \"password\":\"password\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/user/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"mobile\": \"9876543210\",\n  \"gender\": \"male\",\n  \"date_of_birth\": \"1990-01-01\",\n  \"address\": \"123 Main Street\",\n  \"city_id\": 1,\n  \"state_id\": 10,\n  \"pin_code\": \"560001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/profile/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"profile",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"mobile\": \"9876543210\",\n  \"gender\": \"male\",\n  \"date_of_birth\": \"1990-01-01\",\n  \"address\": \"123 Main Street\",\n  \"city_id\": 1,\n  \"state_id\": 10,\n  \"pin_code\": \"560001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/application-history",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"application-history"
 							]
 						}
 					},

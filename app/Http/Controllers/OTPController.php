@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OTP;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,8 @@ class OTPController extends Controller
     {
 
         $request->validate([
-            'user_identifier' => 'required'
+            'user_identifier' => 'required',
+            'slug' => 'required|exists:users,slug'
         ]);
 
         $otp = rand(100000, 999999);
@@ -40,7 +42,8 @@ class OTPController extends Controller
     {
         $params = $request->validate([
             'user_identifier' => 'required',
-            'otp' => 'required'
+            'otp' => 'required',
+            'slug' => 'required|exists:users,slug'
         ]);
 
         $type = $this->isEmail($request->user_identifier) ? 'email' : 'mobile';
@@ -50,9 +53,17 @@ class OTPController extends Controller
             ->where('created_at', '>=', Carbon::now()->subMinutes(5))
             ->count();
 
-
-
         if ($otp == 1) {
+
+            $user = User::whereSlug($params['slug'])->first();
+
+            if($type==='email'){
+                $user->email = $params['user_identifier'];
+            }else{
+                 $user->mobile = $params['user_identifier'];
+            }
+
+            $user->save();
 
             return response()->json([
                 "success" => true,

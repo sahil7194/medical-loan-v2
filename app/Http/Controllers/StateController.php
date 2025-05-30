@@ -12,7 +12,11 @@ class StateController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            "success" => true,
+            "message" => "data found",
+            "data" => State::all()
+        ], 200);
     }
 
     /**

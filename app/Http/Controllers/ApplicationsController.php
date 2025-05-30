@@ -12,13 +12,11 @@ class ApplicationsController extends Controller
 {
     public function apply(Request $request)
     {
-        // dd($request->slug);
+        $request->validate([
+             'slug' => 'required|exists:schemes,slug'
+        ]);
 
         $scheme = Scheme::where('slug', '=', $request->slug)->with('bank')->first();
-
-        // // $scheme = $scheme->toArray();
-
-        // dd($scheme , $scheme->id);
 
         $userId = Auth::user()->id;
 
@@ -35,9 +33,12 @@ class ApplicationsController extends Controller
             'agent_id' => 1,
         ];
 
-        Applications::create($params);
+         $application = Applications::create($params);
 
-        return redirect()->back();
+        return response()->json([
+            "message" => "applied successfully",
+            "success" => true,
+        ]);
     }
 
     public function crmIndex()
@@ -52,7 +53,11 @@ class ApplicationsController extends Controller
         $applications = Applications::where('user_id', Auth::user()->id)
             ->orderByDesc('updated_at')->with('agent', 'scheme.bank', 'applicant')->get();
 
-        return Inertia::render('user/application-history', ['applications' => $applications]);
+        return response()->json( [
+            "message" => "data found",
+            "success" => true,
+            'applications' => $applications
+        ], 200);
     }
 
     public function agentIndex()

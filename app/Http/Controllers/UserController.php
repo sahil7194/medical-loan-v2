@@ -58,64 +58,31 @@ class UserController extends Controller
             ->with('address', 'address.state', 'address.city')
             ->first();
 
-        if ($user->type == 1) {
 
-            return Inertia::render('agent/agent-profile', [
-                'user' => $user
-            ]);
-        }
-
-        if ($user->type == 2) {
-
-            return Inertia::render('crm/crm-profile', [
-                'user' => $user
-            ]);
-        }
-
-        return Inertia::render('user/user-profile', [
-            'user' => $user
+        return response()->json([
+            "message" => "applied successfully",
+            "success" => true,
+            "data" => $user
         ]);
     }
-
-    public function showUserProfileUpdatePage()
-    {
-        $user = User::where('id', Auth::user()->id)
-            ->with('address', 'address.state', 'address.city')
-            ->first();
-
-        $states = State::orderBy('name')->get();
-
-        $cities = City::orderBy('name')->get();
-
-        if ($user->type == 1) {
-            return Inertia::render('agent/agent-update-profile', [
-                'user' => $user,
-                'states' => $states,
-                'cities' => $cities,
-            ]);
-        }
-
-        if ($user->type == 2) {
-            return Inertia::render('crm/crm-update-profile', [
-                'user' => $user,
-                'states' => $states,
-                'cities' => $cities,
-            ]);
-        }
-
-        return Inertia::render('user/user-update-profile', [
-            'user' => $user,
-            'states' => $states,
-            'cities' => $cities,
-        ]);
-    }
-
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request)
     {
+         $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email', // adjust table name
+            'mobile' => 'required|unique:users,mobile',
+            'gender' => 'required|in:male,female,other',
+            'date_of_birth' => 'required|date|before:today',
+
+            'address' => 'required|string|max:255',
+            'city_id' => 'required|integer|exists:cities,id',
+            'state_id' => 'required|integer|exists:states,id',
+            'pin_code' => 'required|digits:6'
+        ]);
 
         $user = User::where('id', Auth::user()->id)->first();
 
@@ -125,7 +92,7 @@ class UserController extends Controller
             unset($params['password']);
         }
 
-        $userParams =  [
+        $userParams = [
             "name" => $request->name,
             "email" => $request->email,
             "mobile" => $request->mobile,
@@ -144,15 +111,13 @@ class UserController extends Controller
 
         $user->address()->update($addresParmas);
 
-        if ($user->type == 1) {
-            return response()->redirectTo('/agent/profile');
-        }
+        $user->save();
 
-        if ($user->type == 2) {
-            return response()->redirectTo('/crm/profile');
-        }
-
-        return response()->redirectTo('/user/profile');
+        return response()->json([
+            "message" => "user updated successfully",
+            "success" => true,
+            "data" => $user
+        ]);
     }
 
     /**

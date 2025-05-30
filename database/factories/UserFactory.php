@@ -34,7 +34,8 @@ class UserFactory extends Factory
             'remember_token'    => Str::random(10),
             'type'         => fake()->numberBetween(0,2),
             'gender'            => fake()->randomElement(['male','female']),
-            'date_of_birth'     => fake()->date('Y-m-d')
+            'date_of_birth'     => fake()->date('Y-m-d'),
+            'pan'               => fake()->regexify('[A-Z]{5}[0-9]{4}[A-Z]')
         ];
     }
 
