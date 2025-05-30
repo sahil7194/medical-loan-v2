@@ -89,10 +89,9 @@ class AuthController extends Controller
         ]);
     }
 
-    public function profile()
-    {
-       $user = User::find(Auth::user()->id)->with('address')->first();
+ public function profile()
+{
+    return Auth::user()->load('address','address.state', 'address.city');
+}
 
-       return $user;
-    }
 }

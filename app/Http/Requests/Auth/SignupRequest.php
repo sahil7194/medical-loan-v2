@@ -23,10 +23,10 @@ class SignupRequest extends FormRequest
     {
         return [
             "name" => 'required|string',
-            "type" => 'required',
+            "type" => 'nullable',
             "password" => 'required|string',
-            "gender" => 'required',
-            "date_of_birth" => 'required',
+            "gender" => 'nullable',
+            "date_of_birth" => 'nullable',
             "mobile" => 'required|unique:users,mobile',
             "email" => 'required|email|unique:users,email',
         ];
