@@ -23,9 +23,11 @@ class CibilController extends Controller
     {
         $logs = Cibil::orderByDesc('created_at')->get();
 
-        return Inertia::render('crm/cibil-log', [
-            'logs' => $logs,
-        ]);
+         return response()->json([
+            "success" => true,
+            "message" => "data found",
+            "data" => $logs
+        ], 200);
     }
 
     public function checkCibil(Request $request)

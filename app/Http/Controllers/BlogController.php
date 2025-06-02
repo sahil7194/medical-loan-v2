@@ -7,7 +7,6 @@ use App\Http\Requests\Blog\UpdateBlogRequest;
 use App\Http\Resources\BlogListItemResource;
 use App\Http\Resources\BlogResource;
 use App\Models\Blog;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -15,12 +14,12 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::orderByDesc('created_at')->with('user')->get();
+        $blogs = Blog::with('user')->orderByDesc('created_at')->paginate(4);
 
-        return response()->json([
+    return BlogListItemResource::collection($blogs)
+        ->additional([
             "message" => "blogs list",
-            "success" => true,
-            "data" => BlogListItemResource::collection($blogs)
+            "success" => true
         ]);
     }
 
@@ -49,7 +48,11 @@ class BlogController extends Controller
     {
         $blogs = Blog::orderByDesc('created_at')->with('user')->get();
 
-        return Inertia::render('crm/blog/blog-list', ['blogs' => $blogs]);
+        return response()->json([
+            "message" => "blog data",
+            "success" => true,
+            "data" => $blogs
+        ]);
     }
 
     public function create()

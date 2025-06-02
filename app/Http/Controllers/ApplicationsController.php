@@ -45,7 +45,11 @@ class ApplicationsController extends Controller
     {
         $applications = Applications::orderByDesc('updated_at')->with('agent', 'scheme.bank', 'applicant')->get();
 
-        return Inertia::render('crm/application-history', ['applications' => $applications]);
+         return response()->json([
+            "success" => true,
+            "message" => "data found",
+            "data" => $applications
+        ], 200);
     }
 
     public function userIndex()
@@ -64,6 +68,10 @@ class ApplicationsController extends Controller
     {
         $applications = Applications::where('agent_id', Auth::user()->id)->orderByDesc('updated_at')->with('agent', 'scheme.bank', 'applicant')->get();
 
-        return Inertia::render('agent/reference-history', ['applications' => $applications]);
+        return response()->json( [
+            "message" => "data found",
+            "success" => true,
+            'applications' => $applications
+        ], 200);
     }
 }

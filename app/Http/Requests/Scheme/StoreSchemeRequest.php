@@ -25,16 +25,16 @@ class StoreSchemeRequest extends FormRequest
             'title' => 'required|string',
             'summary' => 'required|string',
             'description' => 'required|string',
-            'max_amount' => 'required|string',
-            'min_amount' => 'required|string',
-            'max_cibil' => 'required|string',
-            'min_cibil' => 'required|string',
-            'max_interest_rate' => 'required|string',
-            'min_interest_rate' => 'required|string',
-            'max_tenure' => 'required|string',
-            'min_tenure' => 'required|string',
-            'redirection_link' => 'required|string',
-            'bank_id' => 'required|string'
+            'max_amount' => 'required',
+            'min_amount' => 'required',
+            'max_cibil' => 'required',
+            'min_cibil' => 'required',
+            'max_interest_rate' => 'required',
+            'min_interest_rate' => 'required',
+            'max_tenure' => 'required',
+            'min_tenure' => 'required',
+            'redirection_link' => 'required',
+            'bank_id' => 'required'
         ];
     }
 }

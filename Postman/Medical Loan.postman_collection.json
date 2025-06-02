@@ -10,7 +10,7 @@
 			"name": "Unthentication",
 			"item": [
 				{
-					"name": "Login",
+					"name": "Signin",
 					"event": [
 						{
 							"listen": "test",
@@ -36,7 +36,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"test@example.com\",\n    \"password\":\"password\"\n}",
+							"raw": "{\n    \"email\":\"mohan.gour@example.net\",\n    \"password\":\"1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,12 +44,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/login",
+							"raw": "{{url}}/signin",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"login"
+								"signin"
 							]
 						}
 					},
@@ -68,7 +68,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"John Doe\",\n  \"mobile\": \"7083736757\",\n  \"type\": 0,\n  \"email\": \"testrede@example.com\",\n  \"password\": \"secret123\",\n  \"gender\": \"male\",\n  \"date_of_birth\": \"1990-05-15\"\n}",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"mobile\": \"7083736757\",\n  \"type\": 2,\n  \"email\": \"testrede@example.com\",\n  \"password\": \"1234\",\n  \"gender\": \"male\",\n  \"date_of_birth\": \"1990-05-15\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -240,102 +240,6 @@
 							"path": [
 								"blogs",
 								"nihil-et-commodi-labore"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create New Blog",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"title\": \"The title field is reqfeqguired.\",\n    \"summary\": \"The summary field isqfw required.\",\n    \"content\": \"The summary field iswfwfw required\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/blogs",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"blogs"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Blog",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"title\": \"Sample Blog Post\",\n  \"summary\": \"This is a short summary of the blog post.\",\n  \"content\": \"Here is the full content of the blog post. It goes into more detail about the topic and provides insights.\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/blogs/ut-et-voluptatem-minus-dolorem",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"blogs",
-								"ut-et-voluptatem-minus-dolorem"
-							]
-						},
-						"description": "blog can update using slug which shoud be already created"
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{url}}/blogs/ea-debitis-facilis-voluptas-vitae",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"blogs",
-								"ea-debitis-facilis-voluptas-vitae"
 							]
 						}
 					},
@@ -651,7 +555,7 @@
 			]
 		},
 		{
-			"name": "Authenticated User",
+			"name": "Agent",
 			"item": [
 				{
 					"name": "Get Profile",
@@ -739,7 +643,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Profile Copy",
+					"name": "Application History",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -783,8 +687,1153 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Apply To Scheme",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"slug\" : \"consequatur-sed-occaecati-veniam-sapiente-quis-maiores\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/apply",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"apply"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "api/agent/refer/schemes ........................................................................... AgentController@referSchemeList  \nGET|HEAD api/agent/reference-history"
+		},
+		{
+			"name": "Agent",
+			"item": [
+				{
+					"name": "Reference History",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/agent/reference-history",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"agent",
+								"reference-history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refer Schemes List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"slug\" : \"consequatur-sed-occaecati-veniam-sapiente-quis-maiores\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/agent/refer/schemes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"agent",
+								"refer",
+								"schemes"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "to sees agent reference history pass update agent id with login agent id  \nor update form database"
+		},
+		{
+			"name": "Crm",
+			"item": [
+				{
+					"name": "Bank",
+					"item": [
+						{
+							"name": "Get Banks List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/crm/bank",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"bank"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Single Bank",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/crm/bank/non-quod-vel",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"bank",
+										"non-quod-vel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create New Bank",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"test bank\",\n    \"details\":\"vnejl\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/crm/bank",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"bank"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update bank",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"test bankngk\",\n    \"details\":\"vnejl\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/crm/bank/consequatur-blanditiis-impedit-impedit-atque",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"bank",
+										"consequatur-blanditiis-impedit-impedit-atque"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Banks",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/crm/bank/non-quod-vel",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"bank",
+										"non-quod-vel"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "use modal for short form like create and edit banks"
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Get Users List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/crm/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Single User",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/crm/users/porro-asperiores-autem-ut-culpa-quis-corporis",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"users",
+										"porro-asperiores-autem-ut-culpa-quis-corporis"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create New User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"mobile\": \"9876543210\",\n    \"date_of_birth\": \"1995-05-10\",\n    \"gender\": \"male\",\n    \"password\": \"securePass123\",\n    \"type\": \"user\",\n    \"pan\": \"ABCDE1234F\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/crm/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update bank",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Jane Smith\",\n    \"email\": \"jane@example.com\",\n    \"mobile\": \"9876543211\",\n    \"date_of_birth\": \"1990-07-15\",\n    \"gender\": \"female\",\n    \"password\": \"securePass456\",\n    \"type\": \"user\",\n    \"pan\": \"ABCDE1234G\",\n    \"address\": \"123 Main Street, Apartment 4B\",\n    \"city_id\": 2,\n    \"state_id\": 5,\n    \"pin_code\": \"560001\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/crm/users/consequatur-blanditiis-impedit-impedit-atque",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"users",
+										"consequatur-blanditiis-impedit-impedit-atque"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/crm/users/optio-sint-et",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"users",
+										"optio-sint-et"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Schemes",
+					"item": [
+						{
+							"name": "Get Schemes List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/crm/schemes",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"schemes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Single Schemes",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/crm/schemes/magnam-aut-corrupti-distinctio-repellendus-quos-sit-esse",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"schemes",
+										"magnam-aut-corrupti-distinctio-repellendus-quos-sit-esse"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create New Schemes",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Personal Loan Offer\",\n    \"summary\": \"A quick personal loan with low interest rates.\",\n    \"description\": \"This loan is designed for salaried individuals looking for quick disbursal and competitive interest rates. Apply now and get approval within 24 hours.\",\n    \"max_amount\": 1000000,\n    \"min_amount\": 50000,\n    \"max_cibil\": 900,\n    \"min_cibil\": 650,\n    \"max_interest_rate\": 18.5,\n    \"min_interest_rate\": 10.0,\n    \"max_tenure\": 60,\n    \"min_tenure\": 12,\n    \"redirection_link\": \"https://www.examplebank.com/apply-now\",\n    \"bank_id\": 1\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/crm/schemes",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"schemes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Schemes",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Personal Loan Offer Updated\",\n    \"summary\": \"A quick personal loan with low interest rates.\",\n    \"description\": \"This loan is designed for salaried individuals looking for quick disbursal and competitive interest rates. Apply now and get approval within 24 hours.\",\n    \"max_amount\": 1000000,\n    \"min_amount\": 50000,\n    \"max_cibil\": 900,\n    \"min_cibil\": 650,\n    \"max_interest_rate\": 18.5,\n    \"min_interest_rate\": 10.0,\n    \"max_tenure\": 60,\n    \"min_tenure\": 12,\n    \"redirection_link\": \"https://www.examplebank.com/apply-now\",\n    \"bank_id\": 1\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/crm/schemes/id-numquam-enim-laborum-rerum-molestiae-tenetur",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"schemes",
+										"id-numquam-enim-laborum-rerum-molestiae-tenetur"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Scheme",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/crm/schemes/autem-a-autem-ut-et-magni-ex-libero",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"schemes",
+										"autem-a-autem-ut-et-magni-ex-libero"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Blogs",
+					"item": [
+						{
+							"name": "Get Blogs List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/crm/blogs",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"blogs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Single Blog",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/crm/blogs/dolores-repudiandae-quaerat",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"blogs",
+										"dolores-repudiandae-quaerat"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create New Blog",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Top 5 Investment Tips for 2025\",\n    \"summary\": \"Learn the best investment strategies to grow your wealth in 2025.\",\n    \"content\": \"With the changing economic landscape, it's crucial to adapt your investment strategies. In this article, we explore five key tips that can help you make smarter financial decisions in 2025. From diversifying your portfolio to exploring new asset classes, these strategies are backed by expert analysis and market trends.\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/crm/blogs",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"blogs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Schemes",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Updated Top 5 Investment Tips for 2025\",\n    \"summary\": \"Learn the best investment strategies to grow your wealth in 2025.\",\n    \"content\": \"With the changing economic landscape, it's crucial to adapt your investment strategies. In this article, we explore five key tips that can help you make smarter financial decisions in 2025. From diversifying your portfolio to exploring new asset classes, these strategies are backed by expert analysis and market trends.\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/crm/blogs/ut-incidunt-aut-voluptatem-doloremque",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"blogs",
+										"ut-incidunt-aut-voluptatem-doloremque"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Scheme",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/crm/blogs/voluptates-eaque-eum-voluptatibus-aut",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"crm",
+										"blogs",
+										"voluptates-eaque-eum-voluptatibus-aut"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Application History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/crm/application-history",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"crm",
+								"application-history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cibil Check Log",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/crm/cibil-log",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"crm",
+								"cibil-log"
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		},
+		{
+			"name": "States",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/states",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"states"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "City",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/cities?state_id=2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cities"
+					],
+					"query": [
+						{
+							"key": "state_id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

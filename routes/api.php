@@ -9,7 +9,7 @@ use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\StateController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('login', [AuthController::class, 'login']);
+Route::post('signin', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signup']);
 
 Route::middleware(['auth:api'])->group(function () {
@@ -41,3 +41,5 @@ Route::get('states', [StateController::class, 'index']);
 Route::get('cities', [CityController::class, 'filterByState']);
 
 require __DIR__ . '/user.php';
+require __DIR__ . '/agent.php';
+require __DIR__ . '/crm.php';

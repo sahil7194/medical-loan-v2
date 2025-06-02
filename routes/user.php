@@ -9,10 +9,6 @@ use Inertia\Inertia;
 
 Route::middleware(['auth:api'])->group(function () {
 
-    Route::get('user/home', function () {
-        return Inertia::render('user/user-home');
-    })->name('user.home');
-
     Route::post('user/apply', [ApplicationsController::class, 'apply']);
 
     Route::get('user/application-history', [ApplicationsController::class, 'userIndex']);

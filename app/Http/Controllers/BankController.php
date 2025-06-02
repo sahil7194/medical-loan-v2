@@ -11,9 +11,24 @@ class BankController extends Controller
 {
     public function index()
     {
-        $users = Bank::orderByDesc('created_at')->get();
+        $banks = Bank::orderByDesc('created_at')->get();
 
-        return Inertia::render('crm/bank/bank-list',["banks" => $users]);
+         return response()->json([
+            "success" => true,
+            "message" => "data found",
+            "data" => $banks
+        ], 200);
+    }
+
+    public function show($slug)
+    {
+        $banks = Bank::whereSlug($slug)->first();
+
+         return response()->json([
+            "success" => true,
+            "message" => "data found",
+            "data" => $banks
+        ], 200);
     }
 
     public function create()
@@ -26,6 +41,10 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string'
+        ]);
+
         $params = $request->all();
 
         $params['slug'] = fake()->unique()->slug;
@@ -36,29 +55,31 @@ class BankController extends Controller
 
         $params['vendor_code'] = fake()->unique()->lexify('??????');
 
-        Bank::create($params);
+        $bank = Bank::create($params);
 
-        return response()->redirectTo('/crm/bank/');
+         return response()->json([
+            "success" => true,
+            "message" => "bank create successfully",
+            "data" => $bank
+        ], 200);
     }
 
-    public function edit(string $slug)
-    {
-        $bank = Bank::where('slug', $slug)->first();
-
-        return Inertia::render('crm/bank/bank-edit', ['bank' => $bank]);
-    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $slug)
     {
-        $user = Bank::where('slug', $slug)->first();
+        $banks = Bank::where('slug', $slug)->first();
 
         $params = $request->all();
 
-        $user->update($params);
+        $banks->update($params);
 
-        return response()->redirectTo('/crm/bank/');
+         return response()->json([
+            "success" => true,
+            "message" => "data found",
+            "data" => $banks
+        ], 200);
     }
 
     /**
@@ -70,7 +91,10 @@ class BankController extends Controller
 
         $user->delete();
 
-        return response()->redirectTo('/crm/bank/');
+         return response()->json([
+            "success" => true,
+            "message" => "bank deleted successfully",
+        ], 200);
     }
 
 }

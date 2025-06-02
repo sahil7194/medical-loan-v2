@@ -19,7 +19,22 @@ class UserController extends Controller
     {
         $users = User::orderByDesc('created_at')->get();
 
-        return Inertia::render('crm/user/user-list', ["users" => $users]);
+        return response()->json([
+            "message" => "user list",
+            "success" => true,
+            "data" => $users
+        ]);
+    }
+
+    public function show($slug)
+    {
+        $users = User::whereSlug($slug)->first();
+
+        return response()->json([
+            "message" => "user list",
+            "success" => true,
+            "data" => $users
+        ]);
     }
 
 
@@ -36,13 +51,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'mobile' => 'required|string|unique:users,mobile|regex:/^[0-9]{10}$/',
+            'date_of_birth' => 'required|date',
+            'gender' => 'required|in:male,female,other',
+            'password' => 'nullable|string|min:8',
+            'type' => 'required',
+            'pan' => 'nullable|string|size:10',
+        ]);
+
         $params = $request->all();
 
         $params['slug'] = fake()->unique()->slug;
 
-        User::create($params);
+        $user = User::create($params);
 
-        return response()->redirectTo('/crm/users');
+        return response()->json([
+            "message" => "user saved ",
+            "success" => true,
+            "data" => $user
+        ]);
     }
 
     public function edit(string $slug)
@@ -71,7 +101,7 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email', // adjust table name
             'mobile' => 'required|unique:users,mobile',
@@ -129,6 +159,10 @@ class UserController extends Controller
 
         $user->delete();
 
-        return response()->redirectTo('/crm/users');
+        return response()->json([
+            "message" => "user deleted",
+            "success" => true,
+            "data" => null
+        ]);
     }
 }

@@ -17,13 +17,15 @@ class SchemeController extends Controller
 {
     public function index()
     {
-        $schemes = Scheme::orderByDesc('created_at')->with('user', 'bank')->get();
+        $schemes = Scheme::orderByDesc('created_at')->with('user', 'bank')->paginate(4);
 
-        return response()->json([
-            "message" => "blogs list",
-            "success" => true,
-            "data" =>  SchemeListItemResource::collection($schemes)
+
+    return SchemeListItemResource::collection($schemes)
+        ->additional([
+            "message" => "scheme list",
+            "success" => true
         ]);
+
     }
 
     public function show(Request $request, string $slug)
@@ -54,14 +56,22 @@ class SchemeController extends Controller
     {
         $schemes = Scheme::orderByDesc('created_at')->with('user', 'bank')->get();
 
-        return Inertia::render('crm/schemes/scheme-list', ['schemes' => $schemes]);
+        return response()->json([
+            "message" => "scheme data",
+            "success" => true,
+            "data" => $schemes
+        ]);
     }
 
     public function crmShow(string $slug)
     {
         $scheme = Scheme::where('slug', $slug)->with('user')->first();
 
-        return Inertia::render('crm/schemes/scheme-show', ['scheme' => $scheme]);
+        return response()->json([
+            "message" => "scheme data",
+            "success" => true,
+            "data" => $scheme
+        ]);
     }
 
     /**

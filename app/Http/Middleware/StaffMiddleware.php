@@ -19,7 +19,7 @@ class StaffMiddleware
         $user = Auth::user();
 
         if (!($user && $user?->type == 2)) {
-            return response()->redirectTo('/login');
+          return response()->json(["message" => "you don't have access to this page "],403);
         }
 
         return $next($request);
