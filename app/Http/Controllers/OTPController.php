@@ -55,15 +55,15 @@ class OTPController extends Controller
 
         if ($otp == 1) {
 
-            $user = User::whereSlug($params['slug'])->first();
+                $user = User::whereSlug($params['slug'])->first();
 
             if($type==='email'){
-                $user->email = $params['user_identifier'];
+                        $user->email = $params['user_identifier'];
             }else{
-                 $user->mobile = $params['user_identifier'];
-            }
+                        $user->mobile = $params['user_identifier'];
+                }
 
-            $user->save();
+                    $user->save();
 
             return response()->json([
                 "success" => true,

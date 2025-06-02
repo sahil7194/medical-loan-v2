@@ -59,35 +59,35 @@ class AuthController extends Controller
         return Inertia::render('auth/singup');
     }
 
-    public function signup(SignupRequest $request)
-    {
-        $params = $request->validated();
+public function signup(SignupRequest $request)
+{
+    $params = $request->validated();
 
-        if ($params['name'] == 'suyog') {
-            $params['type'] = 2;
-        }
-        $params['slug'] = fake()->unique()->slug;
+    // Use the type provided in the request or default it to 1 if not set
+    $params['type'] = $params['type'] ?? 1;
 
-        $user = User::create($params);
+    $params['slug'] = fake()->unique()->slug;
 
-        if ($token = Auth::guard('api')->attempt([
-            'email' => $request['email'],
-            'password' => $request['password']
-        ])) {
-            return response()->json([
-                "message" => 'login successfully done',
-                "success" => true,
-                "user"    => UserResource::make(Auth::user()),
-                "token"   => $token
-            ], 200);
-        }
+    $user = User::create($params);
 
-
+    if ($token = Auth::guard('api')->attempt([
+        'email' => $request['email'],
+        'password' => $request['password']
+    ])) {
         return response()->json([
-            "message" => 'user name or password invalid',
-            "success" => false
-        ]);
+            "message" => 'login successfully done',
+            "success" => true,
+            "user"    => UserResource::make(Auth::user()),
+            "token"   => $token
+        ], 200);
     }
+
+    return response()->json([
+        "message" => 'user name or password invalid',
+        "success" => false
+    ]);
+}
+
 
  public function profile()
 {

@@ -16,6 +16,10 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::post('logout', [AuthController::class, 'destroy'])
         ->name('logout');
+
+    Route::get('profile', function (\Illuminate\Http\Request $request) {
+        return response()->json($request->user());
+    });
 });
 
 Route::controller(OTPController::class)->group(function () {
