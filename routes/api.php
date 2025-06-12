@@ -9,6 +9,11 @@ use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\StateController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    // return Inertia::render('home');
+
+    return "laravel server is working";
+})->name('home');
 Route::post('signin', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signup']);
 
