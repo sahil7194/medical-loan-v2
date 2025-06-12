@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Scheme\StoreSchemeRequest;
+use App\Http\Requests\Scheme\UpdateSchemeRequest;
+use App\Http\Resources\Scheme\SchemeInfoResource;
+use App\Http\Resources\Scheme\SchemeListItemResource;
 use App\Models\Bank;
 use App\Models\Scheme;
 use Illuminate\Http\Request;
@@ -13,9 +17,15 @@ class SchemeController extends Controller
 {
     public function index()
     {
-        $schemes = Scheme::orderByDesc('created_at')->with('user','bank')->get();
+        $schemes = Scheme::orderByDesc('created_at')->with('user', 'bank')->paginate(4);
 
-        return Inertia::render('schemes/schemes', ['schemes' => $schemes]);
+
+    return SchemeListItemResource::collection($schemes)
+        ->additional([
+            "message" => "scheme list",
+            "success" => true
+        ]);
+
     }
 
     public function show(Request $request, string $slug)
@@ -23,88 +33,113 @@ class SchemeController extends Controller
         if ($request->vendor_code) {
 
             Cache::put('vendor_slug', $request->vendor_code);
-
         }
 
-        $user = Auth::user() ?? null;
+        $scheme = Scheme::where('slug', $slug)->with('user', 'bank')->first();
 
-        $scheme = Scheme::where('slug', $slug)->with('user','bank')->first();
+        if (!$scheme) {
+            return response()->json([
+                "message" => "scheme not found",
+                "success" => false,
+                "data" => null
+            ]);
+        }
 
-        return Inertia::render('schemes/scheme', [
-            'scheme' => $scheme,
-            'user' => $user,
+        return response()->json([
+            "message" => "scheme data",
+            "success" => true,
+            "data" => SchemeInfoResource::make($scheme)
         ]);
     }
 
     public function crmIndex()
     {
-        $schemes = Scheme::orderByDesc('created_at')->with('user','bank')->get();
+        $schemes = Scheme::orderByDesc('created_at')->with('user', 'bank')->get();
 
-        return Inertia::render('crm/schemes/scheme-list', ['schemes' => $schemes]);
+        return response()->json([
+            "message" => "scheme data",
+            "success" => true,
+            "data" => $schemes
+        ]);
     }
 
     public function crmShow(string $slug)
     {
         $scheme = Scheme::where('slug', $slug)->with('user')->first();
 
-        return Inertia::render('crm/schemes/scheme-show', ['scheme' => $scheme]);
-
-    }
-
-     /**
-     * Store a newly created resource in storage.
-     */
-    public function create(Request $request)
-    {
-        $banks = Bank::orderByDesc('created_at')->get(['id','name']);
-
-        return Inertia::render('crm/schemes/scheme-create',['banks' => $banks]);
+        return response()->json([
+            "message" => "scheme data",
+            "success" => true,
+            "data" => $scheme
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        $params = $request->all();
+        $banks = Bank::orderByDesc('created_at')->get(['id', 'name']);
+
+        return Inertia::render('crm/schemes/scheme-create', ['banks' => $banks]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreSchemeRequest $request)
+    {
+        $params = $request->validated();
 
         $params['slug'] = fake()->unique()->slug;
 
-        $id = fake()->numberBetween(1,1000);
+        $id = fake()->numberBetween(1, 1000);
 
-        $params['image'] = 'https://picsum.photos/id/'.$id.'/370/240';
+        $params['image'] = 'https://picsum.photos/id/' . $id . '/370/240';
 
-        $params['status'] ='1';
+        $params['status'] = '1';
 
-        Scheme::create($params);
+        $scheme = Scheme::create($params);
 
-        return response()->redirectTo('/crm/schemes');
+        return response()->json([
+            "message" => "scheme data",
+            "success" => true,
+            "data" => SchemeInfoResource::make($scheme)
+        ]);
     }
 
     public function edit(string $slug)
     {
         $scheme = Scheme::where('slug', $slug)->first();
 
-        $banks = Bank::orderByDesc('created_at')->get(['id','name']);
+        $banks = Bank::orderByDesc('created_at')->get(['id', 'name']);
 
-        return Inertia::render('crm/schemes/scheme-edit', ['scheme' => $scheme , 'banks' => $banks]);
+        return Inertia::render('crm/schemes/scheme-edit', ['scheme' => $scheme, 'banks' => $banks]);
     }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(UpdateSchemeRequest $request, string $slug)
     {
-        $user = Scheme::where('slug', $slug)->first();
+        $scheme = Scheme::where('slug', $slug)->first();
 
-        $params = $request->all();
+        $params = $request->validated();
 
-        if (empty($params['password'])) {
-            unset($params['password']);
+        if (!$scheme) {
+            return response()->json([
+                "message" => "scheme not found",
+                "success" => false,
+                "data" => null
+            ]);
         }
 
-        $user->update($params);
+        $scheme->update($params);
 
-        return response()->redirectTo('/crm/schemes');
+        return response()->json([
+            "message" => "scheme data",
+            "success" => true,
+            "data" => SchemeInfoResource::make($scheme)
+        ]);
     }
 
     /**
@@ -112,10 +147,22 @@ class SchemeController extends Controller
      */
     public function destroy(string $slug)
     {
-        $user = Scheme::where('slug', $slug)->first();
+        $scheme = Scheme::where('slug', $slug)->first();
 
-        $user->delete();
+        if (!$scheme) {
+            return response()->json([
+                "message" => "scheme not found",
+                "success" => false,
+                "data" => null
+            ]);
+        }
 
-        return response()->redirectTo('/crm/schemes');
+        $scheme->delete();
+
+        return response()->json([
+            "message" => "scheme delete successfully",
+            "success" => true,
+            "data" => null
+        ]);
     }
 }

@@ -20,7 +20,7 @@ class UserMiddleware
         $user = Auth::user();
 
         if (!($user->type == 0)) {
-            return response()->redirectTo('/login');
+            return response()->json(["message" => "you don't have access to this page "],403);
         }
 
         return $next($request);

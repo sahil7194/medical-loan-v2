@@ -18,9 +18,10 @@ class AgentController extends Controller
 
         $schemes = Scheme::orderByDesc('created_at')->with('bank')->get();
 
-        return Inertia::render('agent/agent-refer-scheme',[
-            'schemes' => $schemes,
-            'vendor_code' => $user->slug
-        ]);
+        return response()->json( [
+            "message" => "data found",
+            "success" => true,
+            'applications' => $schemes
+        ], 200);
     }
 }

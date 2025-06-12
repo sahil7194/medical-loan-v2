@@ -22,11 +22,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        State::factory(10)->create();
+         $states = State::factory(10)->create();
 
-        City::factory(20)->create();
+         foreach($states as $state){
 
-        User::factory(10)->create();
+             City::factory(20)->create(
+                ['state_id' => $state->id]);
+         }
+
+
+         User::factory(10)->create();
 
         Address::factory(10)->create();
 

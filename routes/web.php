@@ -15,7 +15,9 @@ require __DIR__ . '/crm.php';
 
 
 Route::get('/', function () {
-    return Inertia::render('home');
+    // return Inertia::render('home');
+
+    return "laravel server is working";
 })->name('home');
 
 Route::get('/about-us', function () {

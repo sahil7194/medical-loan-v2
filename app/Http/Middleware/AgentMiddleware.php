@@ -19,7 +19,7 @@ class AgentMiddleware
         $user = Auth::user();
 
         if (!($user && $user?->type == 1)) {
-            return response()->redirectTo('/login');
+            return response()->json(["message" => "you don't have access to this page "],403);
         }
 
         return $next($request);

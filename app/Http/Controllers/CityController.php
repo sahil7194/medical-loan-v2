@@ -12,7 +12,11 @@ class CityController extends Controller
     {
         $cities = City::where('state_id', $request->state_id)->get();
 
-        return response()->json($cities);
+        return response()->json([
+            "success" => true,
+            "message" => "data found",
+            "data" => $cities
+        ], 200);
     }
 
     /**
