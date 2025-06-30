@@ -22,22 +22,39 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         $states = State::factory(10)->create();
+        $states = State::factory(10)->create();
 
-         foreach($states as $state){
+        foreach ($states as $state) {
 
-             City::factory(20)->create(
-                ['state_id' => $state->id]);
-         }
+            City::factory(20)->create(
+                ['state_id' => $state->id]
+            );
+        }
 
 
-         User::factory(10)->create();
+        User::factory(10)->create();
 
         Address::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        User::factory()->createMany([
+            //normal user
+            [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'type' => '0'
+            ],
+            //normal agent
+            [
+                'name' => 'Test Agent User',
+                'email' => 'testone@example.com',
+                'type' => '1'
+            ],
+            //normal crm user
+            [
+                'name' => 'Test Crm User',
+                'email' => 'testtwo@example.com',
+                'type' => '2'
+            ],
         ]);
 
         Bank::factory(10)->create();
