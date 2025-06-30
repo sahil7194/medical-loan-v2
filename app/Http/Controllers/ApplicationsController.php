@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Applications;
 use App\Models\Scheme;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -24,13 +25,15 @@ class ApplicationsController extends Controller
 
         $applicationNumber =  generateApplicationNumber($bankName, $userId);
 
+        $agent = User::where('slug',$request->agent)->where('type', 1)->first(['id']);
+
         $params =  [
             'application_id' => $applicationNumber,
             'status' => fake()->numberBetween(0, 3),
             'remarks' => fake()->text(),
             'scheme_id' => $scheme->id,
             'user_id' => $userId,
-            'agent_id' => 1,
+            'agent_id' => $agent->id ?? null,
         ];
 
          $application = Applications::create($params);
@@ -38,6 +41,7 @@ class ApplicationsController extends Controller
         return response()->json([
             "message" => "applied successfully",
             "success" => true,
+            "application" => $application
         ]);
     }
 
