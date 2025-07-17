@@ -9,6 +9,7 @@ use App\Http\Resources\BlogResource;
 use App\Models\Blog;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -67,7 +68,7 @@ class BlogController extends Controller
     {
         $params = $request->validated();
 
-        $params['slug'] = fake()->unique()->slug;
+        $params['slug'] = Str::random(4);
 
         $id = rand(1, 100);
 
