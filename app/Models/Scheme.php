@@ -28,7 +28,7 @@ class Scheme extends Model
     protected function appUrl(): Attribute
     {
         return Attribute::get(
-            fn () => url('schemes/').'/'.$this->slug
+            fn () => env('FRONTEND_APP_URL').'schemes/'.$this->slug
         );
     }
 }
