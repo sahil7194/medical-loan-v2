@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Blog>
@@ -25,7 +26,7 @@ class BlogFactory extends Factory
             'title'   => fake()->sentence(7),
             'content' => implode("\n\n", fake()->paragraphs(13)),
             'summary' => fake()->sentence(3),
-            'slug'    => fake()->unique()->slug(4),
+            'slug'    => Str::random(4),
             'image'   => $imageUrl,
             'status'  => fake()->numberBetween(0,2),
             'user_id' => $user->id

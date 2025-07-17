@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Bank;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Scheme>
@@ -23,7 +24,7 @@ class SchemeFactory extends Factory
         $imageUrl = 'https://picsum.photos/id/'.$user->id.'/370/240';
 
         return [
-            'slug'              => fake()->unique()->slug,
+            'slug'              =>  Str::random(4),
             'title'             => fake()->sentence,
             'description'       => fake()->paragraphs(10, true),
             'summary' => fake()->sentence(3),

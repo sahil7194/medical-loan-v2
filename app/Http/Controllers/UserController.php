@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
-use App\Models\State;
 use App\Models\User;
 use Inertia\Inertia;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -64,7 +63,7 @@ class UserController extends Controller
 
         $params = $request->all();
 
-        $params['slug'] = fake()->unique()->slug;
+        $params['slug'] = Str::random(4);
 
         $user = User::create($params);
 
