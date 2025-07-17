@@ -24,8 +24,10 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $slug =  Str::random(4);
+
         return [
-            'slug'              => fake()->unique()->slug(2),
+            'slug'              => $slug,
             'name'              => fake()->name(),
             'email'             => fake()->unique()->safeEmail(),
             'mobile'            => fake()->unique()->phoneNumber(),

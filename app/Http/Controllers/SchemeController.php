@@ -9,9 +9,9 @@ use App\Http\Resources\Scheme\SchemeListItemResource;
 use App\Models\Bank;
 use App\Models\Scheme;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class SchemeController extends Controller
 {
@@ -91,7 +91,7 @@ class SchemeController extends Controller
     {
         $params = $request->validated();
 
-        $params['slug'] = fake()->unique()->slug;
+        $params['slug'] = Str::random(4);
 
         $id = fake()->numberBetween(1, 1000);
 
