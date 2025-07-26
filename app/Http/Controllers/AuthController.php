@@ -14,6 +14,23 @@ use Inertia\Inertia;
 class AuthController extends Controller
 {
     //
+    public function checkEmailIsExits(Request $request): JsonResponse
+    {
+        $user = User::whereEmail($request->email)->count();
+
+        if ($user > 0) {
+            return response()->json([
+                "message" => 'This email ID is already registered.',
+                "success" => false,
+            ], 200);
+        }
+
+        return response()->json([
+            "message" => 'you can use this email',
+            "success" => true
+        ]);
+    }
+
     public function login(LoginRequest $request)
     {
         $params = $request->validated();
@@ -23,8 +40,8 @@ class AuthController extends Controller
             return response()->json([
                 "message" => 'login successfully done',
                 "success" => true,
-                "user"    =>  UserResource::make(Auth::user()),
-                "token"   => $token
+                "user" => UserResource::make(Auth::user()),
+                "token" => $token
             ], 200);
         }
 
@@ -43,10 +60,10 @@ class AuthController extends Controller
     {
         Auth::guard('api')->logout();
 
-         return response()->json([
-                "message" => 'successfully logout',
-                "success" => true,
-            ], 200);
+        return response()->json([
+            "message" => 'successfully logout',
+            "success" => true,
+        ], 200);
     }
 
     public function showSignupPage()
@@ -59,39 +76,41 @@ class AuthController extends Controller
         return Inertia::render('auth/singup');
     }
 
-public function signup(SignupRequest $request)
-{
-    $params = $request->validated();
+    public function signup(SignupRequest $request)
+    {
+        $params = $request->validated();
 
-    // Use the type provided in the request or default it to 1 if not set
-    $params['type'] = $params['type'] ?? 1;
+        // Use the type provided in the request or default it to 1 if not set
+        $params['type'] = $params['type'] ?? 1;
 
-    $params['slug'] = fake()->unique()->slug;
+        $params['slug'] = fake()->unique()->slug;
 
-    $user = User::create($params);
+        $user = User::create($params);
 
-    if ($token = Auth::guard('api')->attempt([
-        'email' => $request['email'],
-        'password' => $request['password']
-    ])) {
+        if (
+            $token = Auth::guard('api')->attempt([
+                'email' => $request['email'],
+                'password' => $request['password']
+            ])
+        ) {
+            return response()->json([
+                "message" => 'login successfully done',
+                "success" => true,
+                "user" => UserResource::make(Auth::user()),
+                "token" => $token
+            ], 200);
+        }
+
         return response()->json([
-            "message" => 'login successfully done',
-            "success" => true,
-            "user"    => UserResource::make(Auth::user()),
-            "token"   => $token
-        ], 200);
+            "message" => 'user name or password invalid',
+            "success" => false
+        ]);
     }
 
-    return response()->json([
-        "message" => 'user name or password invalid',
-        "success" => false
-    ]);
-}
 
-
- public function profile()
-{
-    return Auth::user()->load('address','address.state', 'address.city');
-}
+    public function profile()
+    {
+        return Auth::user()->load('address', 'address.state', 'address.city');
+    }
 
 }
