@@ -49,3 +49,4 @@ Route::get('cities', [CityController::class, 'filterByState']);
 require __DIR__ . '/user.php';
 require __DIR__ . '/agent.php';
 require __DIR__ . '/crm.php';
+require __DIR__ . '/webhooks.php';
