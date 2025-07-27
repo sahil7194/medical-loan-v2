@@ -6,3 +6,4 @@ rm -rf storage/logs/laravel.log
 
 composer install
 
+php artisan optimize:clear

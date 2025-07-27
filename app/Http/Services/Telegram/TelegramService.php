@@ -5,7 +5,6 @@ namespace App\Http\Services\Telegram;
 use App\Models\Blog;
 use App\Models\Scheme;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class TelegramService
 {
@@ -31,7 +30,8 @@ class TelegramService
     private function draftMessage(string $message, string $firstName, string $lastName): string
     {
         switch ($message) {
-
+            case '/start':
+                return "*Hi {$firstName} {$lastName},\n Welcome to the Emergency Credits Bot!\n\nFor more information, visit our website: https://www.emergencycredits.com/\nStay updated through our social media handles!";
             case '/view_schemes': {
                 return $this->handleViewSchemes($firstName, $lastName);
             }
@@ -108,7 +108,7 @@ class TelegramService
 
     private function sendMessage(string $userId, string $message)
     {
-        $url = env('TELEGRAM_AUTH_URL').'sendMessage';
+        $url = env('TELEGRAM_AUTH_URL') . 'sendMessage';
 
         $res = Http::post($url, [
             'chat_id' => $userId,

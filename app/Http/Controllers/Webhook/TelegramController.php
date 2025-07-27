@@ -11,12 +11,9 @@ class TelegramController extends Controller
 {
     public function listenWebhook(Request $request)
     {
-        Log::info('telegram', [
-            'request' => $request->all(),
-        ]);
 
         $parmas = $request->all();
-        $parmas = $parmas['request']['message'];
+        $parmas = ['message'];
 
         $firstName = $parmas['from']['first_name'];
         $lastName = $parmas['from']['last_name'];
